@@ -10,9 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from django.conf import settings
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -20,13 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$xtn-y&n(gj6+byfb9!*s8m_lxff#77b_rd=wv*@(4w-8(q453'
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-$xtn-y&n(gj6+byfb9!*s8m_lxff#77b_rd=wv*@(4w-8(q453')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
@@ -40,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     'drf_yasg',
+    'corsheaders',
 
     'allauth',
     'allauth.account',
@@ -47,16 +51,19 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
     'rest_framework',
-    'rest_framework.authtoken',
-    'dj_rest_auth',
+    # 'rest_framework.authtoken',
+    # 'dj_rest_auth',
+    'djoser',
     'dj_rest_auth.registration',
 
-    'users.apps.UsersConfig'
+    'users.apps.UsersConfig',
+    'locations.apps.LocationsConfig'
 ]
 SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -151,14 +158,48 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.User'
 
 # dj-rest-auth settings
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+# ACCOUNT_AUTHENTICATION_METHOD = 'username'
+# ACCOUNT_USERNAME_REQUIRED = False
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_UNIQUE_EMAIL = True
+# ACCOUNT_EMAIL_VERIFICATION = 'none'
+# REST_USE_JWT = True
 
+
+# REST FRAMEWORK SETTINGS
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ]
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    )
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=100),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1000),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'UPDATE_LAST_LOGIN': False,
+
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': settings.SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUDIENCE': None,
+    'ISSUER': None,
+
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+
+    'JTI_CLAIM': 'jti',
+
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }

@@ -9,6 +9,9 @@ dj-rest-auth = {extras = ["with_social"], version = "*"}
 djangorestframework = "*"
 psycopg2-binary = "*"
 drf-yasg = "*"
+django-cors-headers = "*"
+djangorestframework-simplejwt = "*"
+djoser = "*"
 
 [dev-packages]
 

@@ -24,7 +24,8 @@ class AbstractLocaleModel(models.Model):
 
 
 class AbstractDateLocaleModel(AbstractDateModel, AbstractLocaleModel):
-    pass
+    class Meta:
+        abstract = True
 
 
 class AbstractModel(models.Model):
