@@ -27,4 +27,3 @@ class ProvinceSerializer(AbstractModelSerializer):
 
     class Meta(AbstractModelSerializer.Meta):
         model = models.Province
-        depth = 1
