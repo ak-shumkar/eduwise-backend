@@ -36,3 +36,21 @@ class ProvinceI18N(AbstractDateLocaleModel):
     class Meta:
         db_table = 'province_i18n'
         unique_together = ['province', 'locale']
+
+
+class City(AbstractModel):
+    name = models.CharField(max_length=64)
+    province = models.ForeignKey(Province, related_name='cities', on_delete=models.PROTECT)
+
+    class Meta:
+        db_table = 'city'
+        unique_together = ['name', 'province']
+
+
+class CityI18N(AbstractDateLocaleModel):
+    city = models.ForeignKey(City, related_name='translations', on_delete=models.PROTECT)
+    name = models.CharField(max_length=64)
+
+    class Meta:
+        db_table = 'city_i18n'
+        unique_together = ['city', 'locale']

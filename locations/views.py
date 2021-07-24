@@ -33,3 +33,19 @@ class ProvinceI18NViewSet(AbstractViewSet):
     serializer_class = serializers.ProvinceI18NSerializer
     queryset = models.ProvinceI18N.objects.all()
     permission_classes = [IsAdministrator]
+
+
+class CityViewSet(AbstractViewSet):
+    """ City CREATE, UPDATE, GET AND SET_INACTIVE (not DELETE) """
+    model = models.City
+    serializer_class = serializers.CitySerializer
+    queryset = models.City.objects.all()
+    permission_classes = [IsAdministrator]
+
+
+class CityI18NViewSet(AbstractViewSet):
+    """ CREATE, UPDATE, GET AND DELETE city translations """
+    model = models.CityI18N
+    serializer_class = serializers.CityI18NSerializer
+    queryset = models.CityI18N.objects.all()
+    permission_classes = [IsAdministrator]
