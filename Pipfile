@@ -12,6 +12,7 @@ drf-yasg = "*"
 django-cors-headers = "*"
 djangorestframework-simplejwt = "*"
 djoser = "*"
+pillow = "*"
 
 [dev-packages]
 

@@ -7,6 +7,8 @@ class Institution(AbstractDateModel):
     website = models.URLField(blank=True, null=True)
     about = models.TextField(default='')
     address = models.CharField(max_length=128, default='')
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
     city = models.ForeignKey('locations.City', related_name='institutions', on_delete=models.PROTECT)
 
     class Meta:
@@ -25,7 +27,7 @@ class InstitutionI18N(AbstractDateLocaleModel):
 
 
 class Photo(AbstractDateModel):
-    name = models.CharField(blank=True, null=True)
+    name = models.CharField(blank=True, null=True, max_length=64)
     image = models.ImageField(upload_to='images')
     institution = models.ForeignKey(Institution, related_name='photos', on_delete=models.CASCADE)
 
