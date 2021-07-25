@@ -57,7 +57,8 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
 
     'users.apps.UsersConfig',
-    'locations.apps.LocationsConfig'
+    'locations.apps.LocationsConfig',
+    'institutions.apps.InstitutionsConfig'
 ]
 SITE_ID = 1
 

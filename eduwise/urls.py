@@ -25,6 +25,7 @@ urlpatterns = [
     # path('', TemplateView.as_view(template_name='social/index.html')),
     # path('login/', TemplateView.as_view(template_name='social/login.html')),
     path('api/', include('locations.urls')),
+    path('api/', include('institutions.urls')),
     path('api/auth/', include('users.urls')),
     path('admin/', admin.site.urls),  # Do not use in production
     url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
