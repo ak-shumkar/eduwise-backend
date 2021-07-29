@@ -1,0 +1,35 @@
+version: '3.7'
+
+services:
+  web:
+    build: .
+    ports:
+      - 8000:8000
+    command: >
+      bash -c "python manage.py migrate &&
+                python manage.py runserver 0.0.0.0:8000"
+    env_file:
+      - .env.dev
+    volumes:
+      - .:/backend
+    depends_on:
+      - db
+  db:
+    image: 'postgres:13'
+    env_file:
+      - .env.dev
+    volumes:
+      - db-data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80
+    depends_on:
+      - web
+    volumes:
+      - .:/nginx
+volumes:
+  db-data:
