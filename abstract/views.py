@@ -5,7 +5,16 @@ from django.db import models
 
 class AbstractViewSet(ModelViewSet):
     model = models.Model
-    serializer_class = None
+    post_serializer_class = None
+    list_serializer_class = None
+
+    def get_serializer_class(self):
+        if self.action in ['list', 'retrieve'] and self.list_serializer_class:
+            return self.list_serializer_class
+        if self.post_serializer_class:
+            return self.post_serializer_class
+
+        return self.serializer_class
 
     def get_queryset(self):
         if hasattr(self.model, 'active'):
