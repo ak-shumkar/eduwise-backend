@@ -7,7 +7,8 @@ class InstitutionViewSet(AbstractViewSet):
     """ CREATE, GET, UPDATE, DELETE universities """
     model = models.Institution
     queryset = models.Institution.objects.all()
-    serializer_class = serializers.InstitutionSerializer
+    post_serializer_class = serializers.InstitutionSerializer
+    list_serializer_class = serializers.InstitutionDetailSerializer
     permission_classes = [IsAdministrator]
 
 
