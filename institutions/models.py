@@ -4,6 +4,7 @@ from django.db import models
 
 class Institution(AbstractDateModel):
     name = models.CharField(max_length=128)
+    logo = models.ImageField(upload_to='logos')
     website = models.URLField(blank=True, null=True)
     about = models.TextField(default='')
     address = models.CharField(max_length=128, default='')
