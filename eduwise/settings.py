@@ -51,8 +51,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
     'rest_framework',
-    # 'rest_framework.authtoken',
-    # 'dj_rest_auth',
+    'rest_framework_simplejwt',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
     'djoser',
     'dj_rest_auth.registration',
 
@@ -164,7 +165,7 @@ AUTH_USER_MODEL = 'users.User'
 # ACCOUNT_EMAIL_REQUIRED = True
 # ACCOUNT_UNIQUE_EMAIL = True
 # ACCOUNT_EMAIL_VERIFICATION = 'none'
-# REST_USE_JWT = True
+REST_USE_JWT = True
 
 
 # REST FRAMEWORK SETTINGS
@@ -207,3 +208,5 @@ SIMPLE_JWT = {
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# REST_AUTH_TOKEN_MODEL = 'rest_framework_simplejwt.tokens.Token'
