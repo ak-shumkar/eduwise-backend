@@ -9,5 +9,4 @@ urlpatterns = [
     path('facebook/', views.FacebookLogin.as_view(), name='fb_login'),
     path('google/', views.GoogleLogin.as_view(), name='google_login'),
     path('accounts/', include('allauth.urls'), name='socialaccount_signup'),
-
 ]

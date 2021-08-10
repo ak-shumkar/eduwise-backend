@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'djoser',
     'dj_rest_auth.registration',
 
+    # Eduwise apps
     'users.apps.UsersConfig',
     'locations.apps.LocationsConfig',
     'institutions.apps.InstitutionsConfig'
