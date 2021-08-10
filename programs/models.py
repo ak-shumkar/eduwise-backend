@@ -20,19 +20,9 @@ class TermI18N(AbstractDateLocaleModel):
     term = models.ForeignKey(Term, related_name='translations', on_delete=models.PROTECT)
 
 
-class StudyMode(AbstractModel):
-    name = models.CharField(max_length=64)
-
-
-class StudyModeI18N(AbstractDateLocaleModel):
-    name = models.CharField(max_length=64)
-    study_mode = models.ForeignKey(StudyMode, related_name='translations', on_delete=models.PROTECT)
-
-
 class Program(AbstractDateModel):
     overview = models.TextField()
     title = models.CharField(max_length=128)
     link = models.URLField(null=True, blank=True)
     institution = models.ForeignKey('institutions.Institution', on_delete=models.PROTECT, related_name='programs')
     term = models.ForeignKey(Term, on_delete=models.PROTECT, related_name='programs')
-    study_mode = models.ForeignKey(StudyMode, on_delete=models.PROTECT, related_name='programs')
