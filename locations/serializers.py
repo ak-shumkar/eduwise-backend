@@ -29,6 +29,14 @@ class ProvinceSerializer(AbstractModelSerializer):
         model = models.Province
 
 
+class ProvinceDetailSerializer(AbstractModelSerializer):
+    translations = ProvinceI18NSerializer(many=True, read_only=True)
+
+    class Meta(AbstractModelSerializer.Meta):
+        model = models.Province
+        depth = 1
+
+
 class CityI18NSerializer(AbstractModelSerializer):
 
     class Meta(AbstractModelSerializer.Meta):
@@ -40,3 +48,11 @@ class CitySerializer(AbstractModelSerializer):
 
     class Meta(AbstractModelSerializer.Meta):
         model = models.City
+
+
+class CityDetailSerializer(AbstractModelSerializer):
+    translations = CityI18NSerializer(many=True, read_only=True)
+
+    class Meta(AbstractModelSerializer.Meta):
+        model = models.City
+        depth = 1

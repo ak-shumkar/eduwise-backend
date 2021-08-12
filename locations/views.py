@@ -22,7 +22,8 @@ class CountryI18NViewSet(AbstractViewSet):
 class ProvinceViewSet(AbstractViewSet):
     """ Province CREATE, UPDATE, GET AND SET_INACTIVE (not DELETE) """
     model = models.Province
-    serializer_class = serializers.ProvinceSerializer
+    post_serializer_class = serializers.ProvinceSerializer
+    list_serializer_class = serializers.ProvinceDetailSerializer
     queryset = models.Province.objects.all()
     permission_classes = [IsAdministrator]
 
@@ -38,7 +39,8 @@ class ProvinceI18NViewSet(AbstractViewSet):
 class CityViewSet(AbstractViewSet):
     """ City CREATE, UPDATE, GET AND SET_INACTIVE (not DELETE) """
     model = models.City
-    serializer_class = serializers.CitySerializer
+    post_serializer_class = serializers.CitySerializer
+    list_serializer_class = serializers.CityDetailSerializer
     queryset = models.City.objects.all()
     permission_classes = [IsAdministrator]
 
