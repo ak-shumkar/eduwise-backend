@@ -4,7 +4,7 @@
 `git clone git@github.com:ak-shumkar/eduwise-backend.git`
 
 #### HTTPS
-`git clone https://github.com/ak-shumkar/eduwise-backend.git`
+`git clone https://<your_personal_access_token>@github.com/ak-shumkar/eduwise-backend.git`
 
 
 ### Build the project
