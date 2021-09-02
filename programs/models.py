@@ -3,7 +3,7 @@ from django.db import models
 
 
 class ProgramType(AbstractDateModel):
-    """ Types like Bachelor's, Master's, PHD """
+    """ Types like BS, MS, PHD etc."""
     name = models.CharField(max_length=128)
 
 
@@ -16,6 +16,9 @@ class Term(AbstractDateModel):
     """ Program start season like Winter 2022, Spring 2023"""
     season = models.CharField(max_length=32)
     year = models.IntegerField()
+
+    class Meta:
+        unique_together = ['season', 'year']
 
 
 class TermI18N(AbstractDateLocaleModel):
