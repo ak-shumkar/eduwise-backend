@@ -5,6 +5,7 @@ from . import models
 
 class AbstractModelSerializer(ModelSerializer):
     image = serializers.FileField
+
     class Meta:
         model = models.AbstractModel
         fields = '__all__'
