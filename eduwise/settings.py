@@ -60,7 +60,8 @@ INSTALLED_APPS = [
     # Eduwise apps
     'users.apps.UsersConfig',
     'locations.apps.LocationsConfig',
-    'institutions.apps.InstitutionsConfig'
+    'institutions.apps.InstitutionsConfig',
+    'programs.apps.ProgramsConfig'
 ]
 SITE_ID = 1
 
