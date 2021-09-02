@@ -1,5 +1,15 @@
-from abstract.models import AbstractDateModel, AbstractDateLocaleModel
+from abstract.models import AbstractDateModel, AbstractDateLocaleModel, AbstractModel
 from django.db import models
+
+
+class InstitutionType(AbstractModel):
+    """ University, College etc"""
+    name = models.CharField(max_length=128)
+
+
+class InstitutionTypeI18N(AbstractModel):
+    name = models.CharField(max_length=128)
+    institution_type = models.ForeignKey(InstitutionType, related_name='translations', on_delete=models.PROTECT)
 
 
 class Institution(AbstractDateModel):
@@ -10,7 +20,10 @@ class Institution(AbstractDateModel):
     address = models.CharField(max_length=128, default='')
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
+
+    # Relations
     city = models.ForeignKey('locations.City', related_name='institutions', on_delete=models.PROTECT)
+    institution_type = models.ForeignKey(InstitutionType, related_name='institutions', on_delete=models.PROTECT)
 
     class Meta:
         db_table = 'institution'

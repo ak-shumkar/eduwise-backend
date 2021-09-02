@@ -4,6 +4,11 @@ from abstract.serializers import AbstractModelSerializer
 from . import models
 
 
+class InstitutionTypeSerializer(AbstractModelSerializer):
+    class Meta(AbstractModelSerializer.Meta):
+        model = models.InstitutionType
+
+
 class InstitutionI18NSerializer(AbstractModelSerializer):
     class Meta(AbstractModelSerializer.Meta):
         model = models.InstitutionI18N

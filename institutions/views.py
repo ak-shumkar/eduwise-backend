@@ -3,6 +3,14 @@ from utils.permissions import IsAdministrator
 from . import models, serializers
 
 
+class InstitutionTypeViewSet(AbstractViewSet):
+    """ CREATE, GET, UPDATE, DELETE institution types"""
+    model = models.InstitutionType
+    queryset = models.InstitutionType.objects.all()
+    serializer_class = serializers.InstitutionTypeSerializer
+    permission_classes = [IsAdministrator]
+
+
 class InstitutionViewSet(AbstractViewSet):
     """ CREATE, GET, UPDATE, DELETE universities """
     model = models.Institution

@@ -13,6 +13,13 @@ class ProgramTypeSerializer(AbstractModelSerializer):
 
     class Meta(AbstractModelSerializer.Meta):
         model = models.ProgramType
+
+
+class ProgramTypeDetailSerializer(AbstractModelSerializer):
+    translations = ProgramTypeI18NSerializer(many=True, read_only=True)
+
+    class Meta(AbstractModelSerializer.Meta):
+        model = models.ProgramType
         depth = 1
 
 
@@ -22,6 +29,13 @@ class TermI18NSerializer(AbstractModelSerializer):
 
 
 class TermSerializer(AbstractModelSerializer):
+    translations = TermI18NSerializer(many=True, read_only=True)
+
+    class Meta(AbstractModelSerializer.Meta):
+        model = models.Term
+
+
+class TermDetailSerializer(AbstractModelSerializer):
     translations = TermI18NSerializer(many=True, read_only=True)
 
     class Meta(AbstractModelSerializer.Meta):
