@@ -2,7 +2,7 @@ FROM python:3.9
 ENV PYTHONBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE 1
 
-WORKDIR /backend
+WORKDIR /api
 
 COPY Pipfile Pipfile
 COPY Pipfile.lock Pipfile.lock
