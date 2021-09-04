@@ -41,3 +41,12 @@ class ProgramI18N(AbstractDateLocaleModel):
     program = models.ForeignKey(Program, on_delete=models.PROTECT, related_name='translations')
     overview = models.TextField()
     title = models.CharField(max_length=128)
+
+
+class Fee(AbstractDateModel):
+    """ Fees for tuition, dormitory etc"""
+    description = models.TextField()
+    tuition = models.IntegerField()
+    housing = models.IntegerField()
+    other = models.IntegerField()
+    program = models.OneToOneField(Program, related_name='fee', on_delete=models.PROTECT)

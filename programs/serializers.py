@@ -53,3 +53,8 @@ class ProgramSerializer(AbstractModelSerializer):
 
     class Meta(AbstractModelSerializer.Meta):
         model = models.Program
+
+
+class FeeSerializer(AbstractModelSerializer):
+    class Meta(AbstractModelSerializer.Meta):
+        model = models.Fee
