@@ -4,7 +4,7 @@ from django.db import models
 
 class InstitutionType(AbstractModel):
     """ University, College etc"""
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=128, unique=True)
 
 
 class InstitutionTypeI18N(AbstractModel):

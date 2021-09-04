@@ -1,5 +1,6 @@
 from . import models
 from abstract.serializers import AbstractModelSerializer
+from rest_framework.serializers import SlugRelatedField
 
 
 class ProgramTypeI18NSerializer(AbstractModelSerializer):
@@ -48,13 +49,14 @@ class ProgramI18NSerializer(AbstractModelSerializer):
         model = models.ProgramTypeI18N
 
 
-class ProgramSerializer(AbstractModelSerializer):
-    translations = ProgramI18NSerializer(many=True, read_only=True)
-
-    class Meta(AbstractModelSerializer.Meta):
-        model = models.Program
-
-
 class FeeSerializer(AbstractModelSerializer):
     class Meta(AbstractModelSerializer.Meta):
         model = models.Fee
+
+
+class ProgramSerializer(AbstractModelSerializer):
+    translations = ProgramI18NSerializer(many=True, read_only=True)
+    fee = FeeSerializer()
+
+    class Meta(AbstractModelSerializer.Meta):
+        model = models.Program

@@ -48,6 +48,7 @@ class ProgramI18NViewSet(AbstractViewSet):
 
 
 class FeeViewSet(AbstractViewSet):
+    model = models.Fee
     queryset = models.Fee.objects.all()
-    serializers = serializers.FeeSerializer
+    serializer_class = serializers.FeeSerializer
     permission_classes = [IsAdministrator]
