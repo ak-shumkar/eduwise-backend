@@ -212,3 +212,6 @@ MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # REST_AUTH_TOKEN_MODEL = 'rest_framework_simplejwt.tokens.Token'
+SWAGGER_SETTINGS = {
+   'USE_SESSION_AUTH': False
+}
