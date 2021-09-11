@@ -215,3 +215,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SWAGGER_SETTINGS = {
    'USE_SESSION_AUTH': False
 }
+
+STATICFILES_DIRS = [
+    '/usr/local/lib/python3.9/site-packages/django/contrib/admin/static',
+]
