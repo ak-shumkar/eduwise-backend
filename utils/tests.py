@@ -8,18 +8,29 @@ class BaseTestCase(APITestCase):
     def ok(msg=''):
         logger.log(1, msg + ": PASSED")
 
-    def setUp(self) -> None:
+    @classmethod
+    def setUpTestData(cls) -> None:
+        cls.admin_json = {'username': 'admin', 'password': 'mweobfOJE_EBVknckejbcec'}
+        cls.admin = User.objects.create_superuser(**cls.admin_json)
+        # cls.assertTrue(cls.admin.is_superuser)
 
-        self.agent_json = {'username': 'recruiter', 'password': 'admin123', 'role': AGENT}
-        self.agent = User.objects.create_user(**self.agent_json)
-        self.assertTrue(self.agent.is_agent)
+        cls.agent_json = {'username': 'agent', 'password': 'lfkbvwoefbqnfewDJEBD__ECIEBE', 'role': AGENT}
+        cls.agent = User.objects.create_user(**cls.agent_json)
+        # cls.assertTrue(cls.agent.is_agent)
 
-        self.student_json = {'username': 'employee', 'password': 'admin123', 'role': STUDENT}
-        self.student = User.objects.create_user(**self.student_json)
-        self.assertTrue(self.student.is_student)
+        cls.student_json = {'username': 'student', 'password': 'ecjwbeNDOEBO_ENCIJEBD#', 'role': STUDENT}
+        cls.student = User.objects.create_user(**cls.student_json)
+        # cls.assertTrue(cls.student.is_student)
 
-        self.client = APIClient()
-        self.ok('Test case setup')
+        cls.client = APIClient()
+        cls.ok('Test case setup')
 
-    def test(self):
-        pass
+        response = cls.client.post('/api/auth/jwt/create/', data={'username': cls.admin_json['username'],
+                                                                  'password': cls.admin_json['password']})
+
+        print(response)
+        cls.admin_token = response.data['access']
+        cls.admin_auth_headers = {
+            'HTTP_AUTHORIZATION': 'Bearer ' + cls.admin_token,
+        }
+        cls.ok('Admin login')
