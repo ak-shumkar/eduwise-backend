@@ -7,6 +7,15 @@ from django.utils.translation import gettext_lazy as _
 from . import managers
 
 
+AGENT = 'A'
+STUDENT = 'S'
+
+ROLE_CHOICES = [
+    (AGENT, 'Agent'),
+    (STUDENT, 'Student'),
+]
+
+
 class User(AbstractBaseUser, PermissionsMixin):
     username_validator = UnicodeUsernameValidator()
 
@@ -37,6 +46,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ),
     )
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+    role = models.CharField(choices=ROLE_CHOICES, default=STUDENT, max_length=1)
 
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'username'
@@ -63,3 +73,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+    @property
+    def is_student(self):
+        return self.role == STUDENT
+
+    @property
+    def is_agent(self):
+        return self.role == AGENT
