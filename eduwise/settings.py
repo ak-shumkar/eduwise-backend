@@ -64,8 +64,7 @@ INSTALLED_APPS = [
     'programs.apps.ProgramsConfig'
 ]
 
-# As site with id 1 is default example.com
-SITE_ID = 2
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
