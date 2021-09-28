@@ -221,3 +221,12 @@ SWAGGER_SETTINGS = {
 STATICFILES_DIRS = [
     '/usr/local/lib/python3.9/site-packages/django/contrib/admin/static',
 ]
+
+# Djoser custom configurations
+DJOSER = {
+    'SERIALIZERS': {
+        'user_create': 'users.djoser.serializers.UserRegistrationSerializer',
+        'user': 'users.djoser.serializers.UserDetailsSerializer',
+#         'current_user': 'users.djoser.serializers.UserDetailSerializer'
+    }
+}
