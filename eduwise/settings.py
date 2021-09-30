@@ -26,9 +26,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-$xtn-y&n(gj6+byfb9!*s8m_lxff#77b_rd=wv*@(4w-8(q453')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', '128.199.86.102']
+DEBUG = bool(int(os.getenv('DEBUG', 1)))
+print('DEBUG', DEBUG)
+ALLOWED_HOSTS = []
+ALLOWED_HOSTS.extend(
+    filter(
+        None,
+        os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,0.0.0.0,128.199.86.102').split(',')
+    )
+)
 CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
@@ -64,7 +70,7 @@ INSTALLED_APPS = [
     'programs.apps.ProgramsConfig'
 ]
 
-SITE_ID = 1
+SITE_ID = int(os.getenv('SITE_ID', 1))
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
