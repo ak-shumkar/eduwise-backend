@@ -33,8 +33,10 @@ class AbstractViewSet(ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         data = request.data.copy()
-        if hasattr(self.model, 'owner'):
+        if hasattr(self.model, 'owner') and request.user:
             data['owner'] = request.user.id
+        if hasattr(self.model, 'user') and request.user:
+            data['user'] = request.user.id
         serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
         instance = serializer.save()
