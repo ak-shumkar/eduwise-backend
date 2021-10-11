@@ -1,5 +1,6 @@
 from abstract.models import AbstractDateModel, AbstractDateLocaleModel, AbstractModel
 from django.db import models
+from users.models import User
 
 
 class ProgramType(AbstractDateModel):
@@ -50,3 +51,12 @@ class Fee(AbstractDateModel):
     housing = models.IntegerField()
     other = models.IntegerField()
     program = models.OneToOneField(Program, related_name='fee', on_delete=models.PROTECT)
+
+
+class Application(AbstractDateModel):
+    """ Applications for programs """
+    user = models.ForeignKey(User, related_name='applications', on_delete=models.PROTECT)
+    program = models.ForeignKey(Program, related_name='applications', on_delete=models.PROTECT)
+
+    class Meta:
+        unique_together = ['user', 'program']

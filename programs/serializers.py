@@ -1,6 +1,5 @@
 from . import models
 from abstract.serializers import AbstractModelSerializer
-from rest_framework.serializers import SlugRelatedField
 
 
 class ProgramTypeI18NSerializer(AbstractModelSerializer):
@@ -60,3 +59,14 @@ class ProgramSerializer(AbstractModelSerializer):
 
     class Meta(AbstractModelSerializer.Meta):
         model = models.Program
+
+
+class ApplicationSerializer(AbstractModelSerializer):
+    class Meta(AbstractModelSerializer.Meta):
+        model = models.Application
+        fields = ['program', 'user']
+
+
+class ApplicationDetailSerializer(AbstractModelSerializer):
+    class Meta(AbstractModelSerializer.Meta):
+        model = models.Application

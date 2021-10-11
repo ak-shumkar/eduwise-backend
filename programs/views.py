@@ -1,5 +1,6 @@
 from abstract.views import AbstractViewSet
-from utils.permissions import IsAdministrator
+from utils.permissions import IsAdministrator, IsStudentOrAgent
+from rest_framework.permissions import IsAuthenticated
 from . import models, serializers
 
 
@@ -52,3 +53,19 @@ class FeeViewSet(AbstractViewSet):
     queryset = models.Fee.objects.all()
     serializer_class = serializers.FeeSerializer
     permission_classes = [IsAdministrator]
+
+
+class ApplicationViewSet(AbstractViewSet):
+    model = models.Application
+    queryset = models.Application.objects.all()
+    post_serializer_class = serializers.ApplicationSerializer
+    list_serializer_class = serializers.ApplicationDetailSerializer
+    permission_classes = [IsStudentOrAgent]
+
+    def get_queryset(self):
+        """ If user is not admin, return the applications only belonging to current user """
+        qs = self.queryset
+        user = self.request.user
+        if user.is_agent or user.is_student:
+            qs = qs.filter(user=user)
+        return qs
