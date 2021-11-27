@@ -13,9 +13,12 @@ django-cors-headers = "*"
 djangorestframework-simplejwt = "*"
 djoser = "*"
 pillow = "*"
-colorlog = "*"
 
 [dev-packages]
+coverage = "*"
+pytest = "*"
+pytest-django = "*"
+colorlog = "*"
 
 [requires]
 python_version = "3.9"
