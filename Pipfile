@@ -13,6 +13,7 @@ django-cors-headers = "*"
 djangorestframework-simplejwt = "*"
 djoser = "*"
 pillow = "*"
+gunicorn = "*"
 
 [dev-packages]
 coverage = "*"
