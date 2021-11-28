@@ -2,14 +2,17 @@ version: '3.7'
 
 services:
   api:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile-production
+    restart: always
     ports:
       - 8000:8000
     command: >
       bash -c "python manage.py migrate &&
-                python manage.py runserver 0.0.0.0:8000"
+                gunicorn eduwise.wsgi"
     env_file:
-      - .env.dev
+      - .env
     volumes:
       - .:/api
     depends_on:
@@ -17,7 +20,7 @@ services:
   db:
     image: 'postgres:13'
     env_file:
-      - .env.dev
+      - .env
     volumes:
       - db-data:/var/lib/postgresql/data/
     expose:
