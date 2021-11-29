@@ -10,13 +10,14 @@ services:
       - 8000:8000
     command: >
       bash -c "python manage.py migrate &&
-                gunicorn eduwise.wsgi"
+                gunicorn eduwise.wsgi --bind 0.0.0.0:8000"
     env_file:
       - .env
     volumes:
       - .:/api
     depends_on:
       - db
+    mem_limit: 50m
   db:
     image: 'postgres:13'
     env_file:
@@ -25,6 +26,6 @@ services:
       - db-data:/var/lib/postgresql/data/
     expose:
       - "5432"
-
+    mem_limit: 50m
 volumes:
   db-data:
