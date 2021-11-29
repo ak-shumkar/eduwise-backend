@@ -5,7 +5,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-production
-    restart: always
     ports:
       - 8000:8000
     command: >
@@ -17,7 +16,7 @@ services:
       - .:/api
     depends_on:
       - db
-    mem_limit: 50m
+    mem_limit: 100m
   db:
     image: 'postgres:13'
     env_file:
