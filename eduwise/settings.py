@@ -15,9 +15,11 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from django.conf import settings
+from dotenv import load_dotenv
+
+load_dotenv('.env')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -67,7 +69,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'locations.apps.LocationsConfig',
     'institutions.apps.InstitutionsConfig',
-    'programs.apps.ProgramsConfig'
+    'programs.apps.ProgramsConfig',
 ]
 
 SITE_ID = 1
@@ -104,7 +106,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'eduwise.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -122,7 +123,6 @@ DATABASES = {
         'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'AC1298861')
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -142,7 +142,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -155,7 +154,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -176,7 +174,6 @@ AUTH_USER_MODEL = 'users.User'
 # ACCOUNT_UNIQUE_EMAIL = True
 # ACCOUNT_EMAIL_VERIFICATION = 'none'
 REST_USE_JWT = True
-
 
 # REST FRAMEWORK SETTINGS
 REST_FRAMEWORK = {
@@ -221,7 +218,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'api/media')
 
 # REST_AUTH_TOKEN_MODEL = 'rest_framework_simplejwt.tokens.Token'
 SWAGGER_SETTINGS = {
-   'USE_SESSION_AUTH': False
+    'USE_SESSION_AUTH': False
 }
 
 STATICFILES_DIRS = [
@@ -233,6 +230,8 @@ DJOSER = {
     'SERIALIZERS': {
         'user_create': 'users.djoser.serializers.UserRegistrationSerializer',
         'user': 'users.djoser.serializers.UserDetailsSerializer',
-#         'current_user': 'users.djoser.serializers.UserDetailSerializer'
+        #         'current_user': 'users.djoser.serializers.UserDetailSerializer'
     }
 }
+
+ADMINS = [('Mamatkasym', 'mm.kalandar@gmail.com')]
