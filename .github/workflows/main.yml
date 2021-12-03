@@ -19,3 +19,4 @@ jobs:
             git pull origin main
 #            python manage.py migrate
 #            gunicorn eduwise.wsgi --bind 0.0.0.0:8000
+
