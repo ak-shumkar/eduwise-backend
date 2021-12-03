@@ -15,8 +15,4 @@ jobs:
           username: ${{secrets.SSH_USERNAME}} # User of the server you want to ssh into
 
           script: |
-            cd eduwise_backend/
-            git pull origin main
-#            python manage.py migrate
-#            gunicorn eduwise.wsgi --bind 0.0.0.0:8000
-
+            .github/workflows/deploy.sh
