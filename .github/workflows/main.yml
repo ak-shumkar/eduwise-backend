@@ -17,4 +17,5 @@ jobs:
           script: |
             cd eduwise_backend/
             git pull origin main
-            gunicorn eduwise.wsgi --bind 0.0.0.0:8000
+#            python manage.py migrate
+#            gunicorn eduwise.wsgi --bind 0.0.0.0:8000
