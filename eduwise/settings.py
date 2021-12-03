@@ -159,7 +159,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/api/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'api/static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = []
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -220,10 +221,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'api/media')
 SWAGGER_SETTINGS = {
     'USE_SESSION_AUTH': False
 }
-
-STATICFILES_DIRS = [
-    '/usr/local/lib/python3.9/site-packages/django/contrib/admin/static',
-]
 
 # Djoser custom configurations
 DJOSER = {
