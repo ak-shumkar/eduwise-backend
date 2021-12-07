@@ -27,6 +27,7 @@ urlpatterns = [
     path('api/', include('locations.urls')),
     path('api/', include('institutions.urls')),
     path('api/', include('programs.urls')),
+    path('api/', include('contents.urls')),
     path('api/auth/', include('users.urls')),
     path('api/oddmin/', admin.site.urls),  # Do not use in production
     url(r'^api/swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
