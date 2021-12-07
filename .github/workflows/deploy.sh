@@ -1,3 +1,5 @@
+pip install pipenv
+pipenv install --deploy -- system
 python manage.py migrate
 python manage.py collectstatic
 sudo systemctl stop gunicorn
