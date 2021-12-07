@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'locations.apps.LocationsConfig',
     'institutions.apps.InstitutionsConfig',
     'programs.apps.ProgramsConfig',
+    'contents.apps.ContentsConfig'
 ]
 
 SITE_ID = 1
