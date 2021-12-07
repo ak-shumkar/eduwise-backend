@@ -1,3 +1,4 @@
+#!/usr/bin/python
 """
 Django settings for eduwise project.
 
@@ -9,32 +10,34 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+import environ
 import os
 from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from django.conf import settings
-from dotenv import load_dotenv
 
-load_dotenv('.env')
+env = environ.Env()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-$xtn-y&n(gj6+byfb9!*s8m_lxff#77b_rd=wv*@(4w-8(q453')
+SECRET_KEY = env('SECRET_KEY', default='django-insecure-$xtn-y&n(gj6+byfb9!*s8m_lxff#77b_rd=wv*@(4w-8(q453')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(int(os.getenv('DEBUG', 1)))
+DEBUG = bool(int(env('DEBUG', default=1)))
 print('DEBUG', DEBUG)
 ALLOWED_HOSTS = []
 ALLOWED_HOSTS.extend(
     filter(
         None,
-        os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,0.0.0.0,128.199.86.102').split(',')
+        env('ALLOWED_HOSTS', default='localhost,127.0.0.1,0.0.0.0,128.199.86.102').split(',')
     )
 )
 CORS_ORIGIN_ALLOW_ALL = True
@@ -118,11 +121,11 @@ DATABASES = {
     },
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('POSTGRES_NAME', 'eduwise'),
-        'USER': os.getenv('POSTGRES_USER', 'polygon'),
-        'HOST': os.getenv('POSTGRES_HOST', 'localhost'),
-        'PORT': os.getenv('POSTGRES_PORT', '5432'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'AC1298861')
+        'NAME': env('POSTGRES_NAME', default='eduwise'),
+        'USER': env('POSTGRES_USER', default='polygon'),
+        'HOST': env('POSTGRES_HOST', default='localhost'),
+        'PORT': env('POSTGRES_PORT', default='5432'),
+        'PASSWORD': env('POSTGRES_PASSWORD', default='AC1298861')
     }
 }
 
@@ -235,7 +238,7 @@ DJOSER = {
 
 ADMINS = [('Mamatkasym', 'mm.kalandar@gmail.com')]
 
-if os.getenv('ENVIRONMENT', 'production') == 'production':
+if env('ENVIRONMENT', default='production') == 'production':
     SECURE_BROWSER_XSS_FILTER = True
     X_FRAME_OPTIONS = 'DENY'
     SECURE_SSL_REDIRECT = True
@@ -245,3 +248,5 @@ if os.getenv('ENVIRONMENT', 'production') == 'production':
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+
+CKEDITOR_BASEPATH = "/api/static/ckeditor/ckeditor/"
