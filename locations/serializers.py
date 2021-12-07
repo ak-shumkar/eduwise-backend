@@ -1,3 +1,5 @@
+from rest_framework import serializers
+
 from . import models
 from abstract.serializers import AbstractModelSerializer
 
@@ -14,6 +16,12 @@ class CountrySerializer(AbstractModelSerializer):
     class Meta(AbstractModelSerializer.Meta):
         model = models.Country
         depth = 1
+
+    @staticmethod
+    def validate_iso_code(value):
+        if models.Country.objects.filter(iso_code=value.upper()).exists():
+            raise serializers.ValidationError("Country with this iso code already exists")
+        return value.upper()
 
 
 class ProvinceI18NSerializer(AbstractModelSerializer):

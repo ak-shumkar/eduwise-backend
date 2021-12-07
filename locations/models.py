@@ -5,7 +5,11 @@ from django.core.validators import RegexValidator
 
 class Country(AbstractModel):
     name = models.CharField(max_length=64)
-    iso_code = models.CharField(unique=True, max_length=3, validators=[RegexValidator(regex='^.{3}$', message='ISO code has to be of length 3', code='no match')])
+    iso_code = models.CharField(unique=True,
+                                max_length=3,
+                                validators=[RegexValidator(regex='^.{3}$',
+                                                           message='ISO code has to be of length 3',
+                                                           code='no match')])
 
     class Meta:
         db_table = 'country'
