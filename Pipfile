@@ -4,17 +4,20 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
 dj-rest-auth = {extras = ["with_social"], version = "*"}
-djangorestframework = "*"
-psycopg2-binary = "*"
-drf-yasg = "*"
-django-cors-headers = "*"
-djangorestframework-simplejwt = "*"
-djoser = "*"
-pillow = "*"
-gunicorn = "*"
-python-dotenv = "*"
+djangorestframework = "==3.12.4"
+psycopg2-binary = "==2.9.2"
+drf-yasg = "==1.20.0"
+django-cors-headers = "==3.10.1"
+djangorestframework-simplejwt = "==4.8.0"
+djoser = "==2.1.0"
+pillow = "==8.4.0"
+gunicorn = "==20.1.0"
+django-ckeditor = "==6.2.0"
+django = "==3.2"
+django-dotenv = "==1.4.2"
+python-dotenv = "==0.19.2"
+django-environ = "==0.8.1"
 
 [dev-packages]
 coverage = "*"
