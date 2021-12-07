@@ -1,14 +1,13 @@
-from rest_framework.permissions import BasePermission, SAFE_METHODS
+from rest_framework.permissions import BasePermission, SAFE_METHODS, IsAdminUser
 
 
-class IsAdministrator(BasePermission):
+class IsAdministrator(IsAdminUser):
     message = 'Only admin user can make this request'
 
+
+class ReadOnlyOrAdmin(BasePermission):
     def has_permission(self, request, view):
-        user = request.user
-        if user.is_anonymous:
-            return False
-        return bool(user.is_superuser)
+        return request.method in SAFE_METHODS or bool(request.user and request.user.is_staff)
 
 
 class IsStudentOrAgent(BasePermission):
