@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "4c2bf6f6a7743810e51c871213385a2667b241dec574c7b17f4b5392a890868f"
+            "sha256": "bd3a3f89f1d0b254e6a8c5fc6fdb24a5a6f0bdd696f77e886f879699419f8682"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -189,6 +189,14 @@
             ],
             "index": "pypi",
             "version": "==0.8.1"
+        },
+        "django-jazzmin": {
+            "hashes": [
+                "sha256:355b8ff5939555a7dbecaa364a54bbdbcc20f028605abedd6d9e2b6a4d1532b4",
+                "sha256:577b6ef97a51167dac94b12f340a1233b0e5e124c37bce25a7821ba61c22e6b8"
+            ],
+            "index": "pypi",
+            "version": "==2.4.8"
         },
         "django-js-asset": {
             "hashes": [
@@ -592,7 +600,7 @@
                 "sha256:4987c65554f7a2dbf30c18fd48778ef124af6fab771a377103da0585e2336ece",
                 "sha256:c4fdf4019605b6e5423637e01bc9fe4daef873709a7973e195ceba0a62bbc844"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_full_version < '4.0.0'",
             "version": "==1.26.7"
         }
     },
