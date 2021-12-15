@@ -11,7 +11,7 @@ class CountryI18NSerializer(AbstractModelSerializer):
 
 
 class CountrySerializer(AbstractModelSerializer):
-    translations = CountryI18NSerializer(many=True, read_only=True)
+    translations = serializers.SerializerMethodField()
 
     class Meta(AbstractModelSerializer.Meta):
         model = models.Country
@@ -22,6 +22,15 @@ class CountrySerializer(AbstractModelSerializer):
         if models.Country.objects.filter(iso_code=value.upper()).exists():
             raise serializers.ValidationError("Country with this iso code already exists")
         return value.upper()
+
+    @staticmethod
+    def get_translations(obj):
+        result = dict()
+        for translation in obj.translations.all():
+            serializer = CountryI18NSerializer(translation)
+
+            result.update({translation.locale: serializer.data})
+        return result
 
 
 class ProvinceI18NSerializer(AbstractModelSerializer):
@@ -38,11 +47,21 @@ class ProvinceSerializer(AbstractModelSerializer):
 
 
 class ProvinceDetailSerializer(AbstractModelSerializer):
-    translations = ProvinceI18NSerializer(many=True, read_only=True)
+    translations = serializers.SerializerMethodField()
+    country = CountrySerializer()
 
     class Meta(AbstractModelSerializer.Meta):
         model = models.Province
-        depth = 1
+        depth = 2
+
+    @staticmethod
+    def get_translations(obj):
+        result = dict()
+        for translation in obj.translations.all():
+            serializer = CountryI18NSerializer(translation)
+
+            result.update({translation.locale: serializer.data})
+        return result
 
 
 class CityI18NSerializer(AbstractModelSerializer):
@@ -59,8 +78,17 @@ class CitySerializer(AbstractModelSerializer):
 
 
 class CityDetailSerializer(AbstractModelSerializer):
-    translations = CityI18NSerializer(many=True, read_only=True)
+    translations = serializers.SerializerMethodField()
 
     class Meta(AbstractModelSerializer.Meta):
         model = models.City
         depth = 1
+
+    @staticmethod
+    def get_translations(obj):
+        result = dict()
+        for translation in obj.translations.all():
+            serializer = CountryI18NSerializer(translation)
+
+            result.update({translation.locale: serializer.data})
+        return result
