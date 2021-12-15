@@ -12,7 +12,7 @@ class Menu(models.Model):
         db_table = 'menu'
 
     def __str__(self):
-        return f'Menu --> {self.title}'
+        return f'{self.title}'
 
 
 class MenuI18N(AbstractLocaleModel):
@@ -36,7 +36,7 @@ class SubMenu(models.Model):
         db_table = 'submenu'
 
     def __str__(self):
-        return f"{self.title} ({self.menu.title})"
+        return f"{self.title} [submenu of {self.menu.title}]"
 
 
 class SubMenuI18N(AbstractLocaleModel):
@@ -53,13 +53,14 @@ class SubMenuI18N(AbstractLocaleModel):
 
 class TextBlock(models.Model):
     content = RichTextField()
-    submenu = models.ForeignKey(SubMenu, on_delete=models.PROTECT, null=True, related_name='text_blocks')  # TODO remove null=True
+    submenu = models.ForeignKey(SubMenu, on_delete=models.PROTECT, null=True, related_name='posts')  # TODO remove null=True
 
     class Meta:
         db_table = 'text_block'
+        verbose_name = 'post'
 
     def __str__(self):
-        return f"Text Block [{self.id}]"
+        return f"Post [{self.submenu.title}]"
 
 
 class TextBlockMenuI18N(AbstractLocaleModel):
