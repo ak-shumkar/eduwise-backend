@@ -1,10 +1,10 @@
 from django.db import models
-from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 
-from abstract.models import AbstractLocaleModel
+from abstract.models import AbstractLocaleModel, AbstractDateModel
 
 
-class Menu(models.Model):
+class Menu(AbstractDateModel):
     """ A dynamic menu in navbar """
     title = models.CharField(max_length=256)
 
@@ -27,7 +27,7 @@ class MenuI18N(AbstractLocaleModel):
         verbose_name = 'menu translation'
 
 
-class SubMenu(models.Model):
+class SubMenu(AbstractDateModel):
     """ A dynamic submenu under specific menu in navbar """
     title = models.CharField(max_length=256)
     menu = models.ForeignKey(Menu, on_delete=models.PROTECT, related_name='submenus')
@@ -51,8 +51,8 @@ class SubMenuI18N(AbstractLocaleModel):
         verbose_name = 'submenu translation'
 
 
-class TextBlock(models.Model):
-    content = RichTextField()
+class TextBlock(AbstractDateModel):
+    content = RichTextUploadingField()
     submenu = models.ForeignKey(SubMenu, on_delete=models.PROTECT, null=True, related_name='posts')  # TODO remove null=True
 
     class Meta:
@@ -68,8 +68,8 @@ class TextBlockMenuI18N(AbstractLocaleModel):
                                    related_name='translations',
                                    on_delete=models.PROTECT,
                                    verbose_name='Original name')
-    content = RichTextField(verbose_name='Translation')
+    content = RichTextUploadingField(verbose_name='Translation')
 
     class Meta:
         db_table = 'text_block_i18n'
-        verbose_name = 'text block translation'
+        verbose_name = 'post translation'
