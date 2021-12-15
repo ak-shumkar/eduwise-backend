@@ -24,12 +24,16 @@ class SubMenuAdmin(admin.ModelAdmin):
         model = SubMenu
 
 
+class SubMenuInlineAdmin(admin.TabularInline):
+    model = SubMenu
+
+
 class MenuI18NInlineAdmin(admin.TabularInline):
     model = MenuI18N
 
 
 class MenuAdmin(admin.ModelAdmin):
-    inlines = [MenuI18NInlineAdmin]
+    inlines = [MenuI18NInlineAdmin, SubMenuInlineAdmin]
 
     class Meta:
         model = Menu
