@@ -1,5 +1,6 @@
-from abstract.models import AbstractDateModel, AbstractDateLocaleModel, AbstractModel
 from django.db import models
+
+from abstract.models import AbstractDateModel, AbstractDateLocaleModel, AbstractModel
 
 
 class InstitutionType(AbstractModel):
@@ -8,11 +9,13 @@ class InstitutionType(AbstractModel):
 
 
 class InstitutionTypeI18N(AbstractModel):
+    """ Institution type translations """
     name = models.CharField(max_length=128)
     institution_type = models.ForeignKey(InstitutionType, related_name='translations', on_delete=models.PROTECT)
 
 
 class Institution(AbstractDateModel):
+    """ Institution item """
     name = models.CharField(max_length=128)
     logo = models.ImageField(upload_to='logos', null=True, blank=True)
     website = models.URLField(blank=True, null=True)
@@ -31,6 +34,7 @@ class Institution(AbstractDateModel):
 
 
 class InstitutionI18N(AbstractDateLocaleModel):
+    """ Institution item translations """
     name = models.CharField(max_length=128)
     about = models.TextField(default='')
     address = models.CharField(max_length=128, default='')
@@ -42,6 +46,7 @@ class InstitutionI18N(AbstractDateLocaleModel):
 
 
 class Photo(AbstractDateModel):
+    """ Institution photos """
     name = models.CharField(blank=True, null=True, max_length=64)
     image = models.ImageField(upload_to='images')
     institution = models.ForeignKey(Institution, related_name='photos', on_delete=models.CASCADE)
