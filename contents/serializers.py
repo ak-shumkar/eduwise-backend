@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, SerializerMethodField
 from . import models
 
 
@@ -9,11 +9,20 @@ class TextBlockI18NSerializer(ModelSerializer):
 
 
 class TextBlockSerializer(ModelSerializer):
-    translations = TextBlockI18NSerializer(many=True, read_only=True)
+    translations = SerializerMethodField()
 
     class Meta:
         model = models.TextBlock
         fields = '__all__'
+
+    @staticmethod
+    def get_translations(obj):
+        result = dict()
+        for translation in obj.translations.all():
+            serializer = TextBlockI18NSerializer(translation)
+
+            result.update({translation.locale: serializer.data})
+        return result
 
 
 class SubMenuI18NSerializer(ModelSerializer):
@@ -23,12 +32,21 @@ class SubMenuI18NSerializer(ModelSerializer):
 
 
 class SubMenuSerializer(ModelSerializer):
-    translations = SubMenuI18NSerializer(many=True, read_only=True)
-    text_blocks = TextBlockSerializer(many=True, read_only=True)
+    translations = SerializerMethodField()
+    posts = TextBlockSerializer(many=True, read_only=True)
 
     class Meta:
         model = models.SubMenu
         fields = '__all__'
+
+    @staticmethod
+    def get_translations(obj):
+        result = dict()
+        for translation in obj.translations.all():
+            serializer = SubMenuI18NSerializer(translation)
+
+            result.update({translation.locale: serializer.data})
+        return result
 
 
 class MenuI18NSerializer(ModelSerializer):
@@ -38,9 +56,18 @@ class MenuI18NSerializer(ModelSerializer):
 
 
 class MenuSerializer(ModelSerializer):
-    translations = MenuI18NSerializer(many=True, read_only=True)
+    translations = SerializerMethodField()
     submenus = SubMenuSerializer(many=True, read_only=True)
 
     class Meta:
         model = models.Menu
         fields = '__all__'
+
+    @staticmethod
+    def get_translations(obj):
+        result = dict()
+        for translation in obj.translations.all():
+            serializer = MenuI18NSerializer(translation)
+
+            result.update({translation.locale: serializer.data})
+        return result
