@@ -6,7 +6,6 @@ from django.urls import path, include
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from django.views.generic import TemplateView
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -22,16 +21,17 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    # path('', TemplateView.as_view(template_name='social/index.html')),
-    # path('login/', TemplateView.as_view(template_name='social/login.html')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('api/', include('locations.urls')),
     path('api/', include('institutions.urls')),
     path('api/', include('programs.urls')),
     path('api/', include('contents.urls')),
     path('api/auth/', include('users.urls')),
-    path('api/oddmin/', admin.site.urls),  # Do not use in production
+    path('api/oddmin/', admin.site.urls),   # Do not use in production
     url(r'^api/swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     url(r'^api/swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     url(r'^api/redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
