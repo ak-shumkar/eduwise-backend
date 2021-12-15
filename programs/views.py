@@ -1,6 +1,5 @@
 from abstract.views import AbstractViewSet
 from utils.permissions import IsAdministrator, IsStudentOrAgent
-from rest_framework.permissions import IsAuthenticated
 from . import models, serializers
 
 
@@ -66,6 +65,8 @@ class ApplicationViewSet(AbstractViewSet):
         """ If user is not admin, return the applications only belonging to current user """
         qs = self.queryset
         user = self.request.user
-        if user.is_agent or user.is_student:
-            qs = qs.filter(user=user)
-        return qs
+        if user is not None:
+            if user.is_agent or user.is_student:
+                qs = qs.filter(user=user)
+            return qs
+        return None
