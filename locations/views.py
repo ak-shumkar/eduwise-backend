@@ -1,6 +1,6 @@
 from abstract.views import AbstractViewSet
 from . import models, serializers
-from utils.permissions import IsAdministrator
+from utils.permissions import IsAdministrator, ReadOnlyOrAdmin
 
 
 class CountryViewSet(AbstractViewSet):
@@ -8,7 +8,7 @@ class CountryViewSet(AbstractViewSet):
     model = models.Country
     serializer_class = serializers.CountrySerializer
     queryset = models.Country.objects.all()
-    permission_classes = [IsAdministrator]
+    permission_classes = [ReadOnlyOrAdmin]
 
 
 class CountryI18NViewSet(AbstractViewSet):
@@ -25,7 +25,7 @@ class ProvinceViewSet(AbstractViewSet):
     post_serializer_class = serializers.ProvinceSerializer
     list_serializer_class = serializers.ProvinceDetailSerializer
     queryset = models.Province.objects.all()
-    permission_classes = [IsAdministrator]
+    permission_classes = [ReadOnlyOrAdmin]
 
 
 class ProvinceI18NViewSet(AbstractViewSet):
@@ -42,7 +42,7 @@ class CityViewSet(AbstractViewSet):
     post_serializer_class = serializers.CitySerializer
     list_serializer_class = serializers.CityDetailSerializer
     queryset = models.City.objects.all()
-    permission_classes = [IsAdministrator]
+    permission_classes = [ReadOnlyOrAdmin]
 
 
 class CityI18NViewSet(AbstractViewSet):
