@@ -12,6 +12,7 @@ class TextBlockSerializer(ModelSerializer):
     translations = SerializerMethodField()
 
     class Meta:
+        depth = 1
         model = models.TextBlock
         fields = '__all__'
 
