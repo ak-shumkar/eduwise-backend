@@ -6,10 +6,11 @@ from abstract.models import AbstractLocaleModel, AbstractDateModel
 
 class Menu(AbstractDateModel):
     """ A dynamic menu in navbar """
-    title = models.CharField(max_length=256)
+    title = models.CharField(max_length=256, unique=True)
 
     class Meta:
         db_table = 'menu'
+        ordering = ['-updated_at']
 
     def __str__(self):
         return f'{self.title}'
@@ -34,6 +35,8 @@ class SubMenu(AbstractDateModel):
 
     class Meta:
         db_table = 'submenu'
+        ordering = ['-updated_at']
+        unique_together = ['menu', 'title']
 
     def __str__(self):
         return f"{self.title} [submenu of {self.menu.title}]"

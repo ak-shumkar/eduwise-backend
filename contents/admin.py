@@ -34,6 +34,7 @@ class MenuI18NInlineAdmin(admin.TabularInline):
 
 class MenuAdmin(admin.ModelAdmin):
     inlines = [MenuI18NInlineAdmin, SubMenuInlineAdmin]
+    list_display = ['title', 'updated_at']
 
     class Meta:
         model = Menu
