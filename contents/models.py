@@ -7,10 +7,11 @@ from abstract.models import AbstractLocaleModel, AbstractDateModel
 class Menu(AbstractDateModel):
     """ A dynamic menu in navbar """
     title = models.CharField(max_length=256, unique=True)
+    order = models.PositiveIntegerField(default=0)
 
     class Meta:
         db_table = 'menu'
-        ordering = ['-updated_at']
+        ordering = ['order']
 
     def __str__(self):
         return f'{self.title}'
@@ -31,11 +32,12 @@ class MenuI18N(AbstractLocaleModel):
 class SubMenu(AbstractDateModel):
     """ A dynamic submenu under specific menu in navbar """
     title = models.CharField(max_length=256)
+    order = models.PositiveIntegerField(default=0)
     menu = models.ForeignKey(Menu, on_delete=models.PROTECT, related_name='submenus')
 
     class Meta:
         db_table = 'submenu'
-        ordering = ['-updated_at']
+        ordering = ['order']
         unique_together = ['menu', 'title']
 
     def __str__(self):
