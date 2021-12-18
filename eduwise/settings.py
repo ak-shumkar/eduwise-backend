@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     'ckeditor',
     'ckeditor_uploader',
+    'adminsortable2',
 
     # Eduwise apps
     'users.apps.UsersConfig',
@@ -91,7 +92,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.locale.LocaleMiddleware'
 ]
 
 ROOT_URLCONF = 'eduwise.urls'
