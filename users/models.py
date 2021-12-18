@@ -6,7 +6,6 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from . import managers
 
-
 AGENT = 'A'
 STUDENT = 'S'
 
@@ -59,19 +58,17 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name = _('user')
         verbose_name_plural = _('users')
 
-    def clean(self):
+    def clean(self):  # pragma: no cover
         super().clean()
         self.email = self.__class__.objects.normalize_email(self.email)
 
     @property
     def fullname(self):
-        """
-        Return the first_name plus the last_name, with a space in between.
-        """
+        # Return the first_name plus the last_name, with a space in between.
         return f'{self.first_name} {self.last_name}'.strip()
 
     def email_user(self, subject, message, from_email=None, **kwargs):
-        """Send an email to this user."""
+        # Send an email to this user.
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
     @property
