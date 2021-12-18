@@ -1,29 +1,29 @@
-# from utils.tests import BaseTestCase
-#
-#
-# class UserTest(BaseTestCase):
-#
-#     def test_student_register_api(self):
-#         json = self.student_json
-#         json['username'] = 'random_student'
-#         response = self.client.post('/api/auth/users/', data=self.student_json)
-#         # print(type(response.data))
-#         self.assertEqual(response.status_code, 201)
-#         self.assertEqual(response.data['role'], 'S')
-#         self.ok('Student register')
-#
-#     def test_get_student_details(self):
-#         response = self.client.get(f'/api/auth/users/{self.student.id}/', **self.admin_auth_headers)
-#         self.assertEqual(response.status_code, 200)
-#         data = response.data
-#         # Assert password is not included in details
-#         self.assertIsNone(data.get('password', None))
-#         for k, v in self.student_json.items():
-#             # exclude password in get
-#             if k != 'password':
-#                 self.assertEqual(v, data[k])
-#
-#         self.ok('Student details')
-#
-#     def test(self):
-#         pass
+import pytest
+from rest_framework.test import APIClient
+from django.contrib.auth import get_user_model
+from users.models import AGENT, STUDENT
+User = get_user_model()
+
+client = APIClient()
+
+
+@pytest.fixture
+def user():
+    user = User.objects.create(username='demouser', password='demopassword')
+    return user
+
+
+@pytest.mark.django_db
+def test_student_register():
+    response = client.post('/api/auth/users/', data={'username': 'demouser', 'password': 'demopassword'})
+    assert response.status_code == 201
+    assert response.data['role'] == STUDENT
+
+
+@pytest.mark.django_db
+def test_agent_register():
+    response = client.post('/api/auth/users/', data={'username': 'demoagent',
+                                                     'password': 'demopassword',
+                                                     'role': AGENT})
+    assert response.status_code == 201
+    assert response.data['role'] == AGENT
