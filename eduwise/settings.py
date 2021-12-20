@@ -236,7 +236,7 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
-MEDIA_URL = 'api/media/'
+MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # REST_AUTH_TOKEN_MODEL = 'rest_framework_simplejwt.tokens.Token'
