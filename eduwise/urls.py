@@ -21,7 +21,7 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path('ckeditor/', include('ckeditor_uploader.urls')),
+    url(r'api/ckeditor/', include('ckeditor_uploader.urls')),
     path('api/', include('locations.urls')),
     path('api/', include('institutions.urls')),
     path('api/', include('programs.urls')),
