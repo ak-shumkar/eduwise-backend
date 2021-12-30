@@ -1,12 +1,16 @@
 from django.db import models
-from abstract.models import AbstractModel, AbstractDateLocaleModel
 from django.core.validators import RegexValidator
 
+from smart_selects.db_fields import ChainedForeignKey
 
-class Country(AbstractModel):
-    name = models.CharField(max_length=64)
+from abstract.models import AbstractModel, AbstractDateLocaleModel
+from utils.data.countries import COUNTRIES
+
+
+class Country(models.Model):
+    name = models.CharField(max_length=128, choices=COUNTRIES)
     iso_code = models.CharField(unique=True,
-                                default='NON',  # TODO Remove
+                                editable=False,
                                 max_length=3,
                                 validators=[RegexValidator(regex='^.{3}$',
                                                            message='ISO code has to be of length 3',
@@ -17,7 +21,7 @@ class Country(AbstractModel):
         verbose_name_plural = 'countries'
 
     def __str__(self):
-        return f"{self.name}"
+        return self.name
 
 
 class CountryI18N(AbstractDateLocaleModel):
@@ -33,7 +37,7 @@ class CountryI18N(AbstractDateLocaleModel):
         verbose_name = 'country translation'
 
 
-class Province(AbstractModel):
+class Province(models.Model):
     name = models.CharField(max_length=64)
     country = models.ForeignKey(Country, related_name='provinces', on_delete=models.PROTECT)
 
@@ -42,7 +46,7 @@ class Province(AbstractModel):
         unique_together = ['name', 'country']
 
     def __str__(self):
-        return f"{self.name}, {self.country.name}"
+        return self.name
 
 
 class ProvinceI18N(AbstractDateLocaleModel):
@@ -58,17 +62,22 @@ class ProvinceI18N(AbstractDateLocaleModel):
         verbose_name = 'province translation'
 
 
-class City(AbstractModel):
+class City(models.Model):
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, related_name='cities')
+    province = ChainedForeignKey(Province,
+                                 chained_field='country',
+                                 chained_model_field='country',
+                                 blank=True,
+                                 null=True)
     name = models.CharField(max_length=64)
-    province = models.ForeignKey(Province, related_name='cities', on_delete=models.PROTECT)
 
     class Meta:
         db_table = 'city'
-        unique_together = ['name', 'province']
+        unique_together = ['name', 'province', 'country']
         verbose_name_plural = 'cities'
 
     def __str__(self):
-        return f"{self.name}, {self.province.name}, {self.province.country.name}"
+        return self.name
 
 
 class CityI18N(AbstractDateLocaleModel):
