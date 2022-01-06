@@ -8,7 +8,7 @@ from utils.data.countries import COUNTRIES
 
 
 class Country(models.Model):
-    name = models.CharField(max_length=128, choices=COUNTRIES)
+    name = models.CharField(max_length=128, choices=COUNTRIES, unique=True)
     iso_code = models.CharField(unique=True,
                                 editable=False,
                                 max_length=3,
@@ -18,6 +18,7 @@ class Country(models.Model):
 
     class Meta:
         db_table = 'country'
+        ordering = ['name']
         verbose_name_plural = 'countries'
 
     def __str__(self):
@@ -27,7 +28,7 @@ class Country(models.Model):
 class CountryI18N(AbstractDateLocaleModel):
     country = models.ForeignKey(Country,
                                 related_name='translations',
-                                on_delete=models.PROTECT,
+                                on_delete=models.CASCADE,
                                 verbose_name='Original name')
     name = models.CharField(max_length=64, verbose_name='Translation')
 
@@ -38,12 +39,13 @@ class CountryI18N(AbstractDateLocaleModel):
 
 
 class Province(models.Model):
-    name = models.CharField(max_length=64)
-    country = models.ForeignKey(Country, related_name='provinces', on_delete=models.PROTECT)
+    name = models.CharField(max_length=128)
+    country = models.ForeignKey(Country, related_name='provinces', on_delete=models.CASCADE)
 
     class Meta:
         db_table = 'province'
         unique_together = ['name', 'country']
+        ordering = ['name']
 
     def __str__(self):
         return self.name
@@ -52,7 +54,7 @@ class Province(models.Model):
 class ProvinceI18N(AbstractDateLocaleModel):
     province = models.ForeignKey(Province,
                                  related_name='translations',
-                                 on_delete=models.PROTECT,
+                                 on_delete=models.CASCADE,
                                  verbose_name='Original name')
     name = models.CharField(max_length=64, verbose_name='Translation')
 
@@ -68,8 +70,9 @@ class City(models.Model):
                                  chained_field='country',
                                  chained_model_field='country',
                                  blank=True,
-                                 null=True)
-    name = models.CharField(max_length=64)
+                                 null=True,
+                                 on_delete=models.CASCADE)
+    name = models.CharField(max_length=128)
 
     class Meta:
         db_table = 'city'
