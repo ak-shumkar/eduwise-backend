@@ -7,6 +7,9 @@ class InstitutionType(AbstractModel):
     """ University, College etc"""
     name = models.CharField(max_length=128, unique=True)
 
+    def __str__(self):
+        return self.name
+
 
 class InstitutionTypeI18N(AbstractModel):
     """ Institution type translations """
@@ -31,6 +34,9 @@ class Institution(AbstractDateModel):
     class Meta:
         db_table = 'institution'
         unique_together = ['name', 'city']
+
+    def __str__(self):
+        return self.name + ", " + self.city.name
 
 
 class InstitutionI18N(AbstractDateLocaleModel):
