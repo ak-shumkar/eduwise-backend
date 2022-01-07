@@ -1,21 +1,9 @@
+from django_filters import rest_framework as filters
+
 from abstract.views import AbstractViewSet
-from utils.permissions import IsAdministrator, IsStudentOrAgent
+from utils.permissions import IsAdministrator, IsStudentOrAgent, ReadOnlyOrAdmin
 from . import models, serializers
-
-
-class ProgramTypeViewSet(AbstractViewSet):
-    model = models.ProgramType
-    queryset = models.ProgramType.objects.all()
-    post_serializer_class = serializers.ProgramTypeSerializer
-    list_serializer_class = serializers.ProgramTypeDetailSerializer
-    permission_classes = [IsAdministrator]
-
-
-class ProgramTypeI18NViewSet(AbstractViewSet):
-    model = models.ProgramTypeI18N
-    queryset = models.ProgramType.objects.all()
-    serializer_class = serializers.ProgramTypeI18NSerializer
-    permission_classes = [IsAdministrator]
+from .filters import ProgramFilters
 
 
 class TermViewSet(AbstractViewSet):
@@ -37,14 +25,9 @@ class ProgramViewSet(AbstractViewSet):
     model = models.Program
     queryset = models.Program.objects.all()
     serializer_class = serializers.ProgramSerializer
-    permission_classes = [IsAdministrator]
-
-
-class ProgramI18NViewSet(AbstractViewSet):
-    model = models.ProgramTypeI18N
-    queryset = models.ProgramI18N.objects.all()
-    serializer_class = serializers.ProgramI18NSerializer
-    permission_classes = [IsAdministrator]
+    permission_classes = [ReadOnlyOrAdmin]
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = ProgramFilters
 
 
 class FeeViewSet(AbstractViewSet):
