@@ -1,6 +1,10 @@
+from django_filters import rest_framework as filters
+from rest_framework.filters import SearchFilter
+
 from abstract.views import AbstractViewSet
-from utils.permissions import IsAdministrator
+from utils.permissions import IsAdministrator, ReadOnlyOrAdmin
 from . import models, serializers
+from .filters import InstitutionFilter
 
 
 class InstitutionTypeViewSet(AbstractViewSet):
@@ -17,7 +21,10 @@ class InstitutionViewSet(AbstractViewSet):
     queryset = models.Institution.objects.all()
     post_serializer_class = serializers.InstitutionSerializer
     list_serializer_class = serializers.InstitutionDetailSerializer
-    permission_classes = [IsAdministrator]
+    permission_classes = [ReadOnlyOrAdmin]
+    filter_backends = (SearchFilter, filters.DjangoFilterBackend)
+    search_fields = ['name']
+    filterset_class = InstitutionFilter
 
 
 class InstitutionI18NViewSet(AbstractViewSet):
