@@ -3,13 +3,16 @@ from django.db import models
 from users.models import User
 
 
-class ProgramType(AbstractDateModel):
-    """ Types like BS, MS, PHD etc."""
+class Degree(AbstractDateModel):
+    """ Degrees like BS, MS, PHD etc."""
     name = models.CharField(max_length=128)
 
+    def __str__(self):
+        return self.name
 
-class ProgramTypeI18N(AbstractDateLocaleModel):
-    """ Program Type translation"""
+
+class DegreeI18N(AbstractDateLocaleModel):
+    """ Degree translation"""
     name = models.CharField(max_length=128)
 
 
@@ -30,11 +33,21 @@ class TermI18N(AbstractDateLocaleModel):
 
 class Program(AbstractDateModel):
     """ Program """
-    overview = models.TextField()
+    overview = models.TextField('Description')
     title = models.CharField(max_length=128)
-    link = models.URLField(null=True, blank=True)
-    institution = models.ForeignKey('institutions.Institution', on_delete=models.PROTECT, related_name='programs')
-    term = models.ForeignKey(Term, on_delete=models.PROTECT, related_name='programs')
+    website = models.URLField('Link to program details', null=True, blank=True)
+    duration = models.IntegerField('Study duration in month(s)', default=0)
+    start = models.DateField('Start date', blank=True, null=True)
+    end = models.DateField('End date', blank=True, null=True)
+    deadline = models.DateField('Application deadline', blank=True, null=True)
+    # Relations
+    institution = models.ForeignKey('institutions.Institution',
+                                    on_delete=models.PROTECT,
+                                    related_name='programs')
+    degree = models.OneToOneField(Degree, on_delete=models.PROTECT, related_name='degree', null=True, blank=True)
+
+    def __str__(self):
+        return self.title
 
 
 class ProgramI18N(AbstractDateLocaleModel):
@@ -46,10 +59,13 @@ class ProgramI18N(AbstractDateLocaleModel):
 
 class Fee(AbstractDateModel):
     """ Fees for tuition, dormitory etc"""
-    description = models.TextField()
-    tuition = models.IntegerField()
-    housing = models.IntegerField()
-    other = models.IntegerField()
+    CURRENCIES = [
+        ('USD', 'US dollar')
+    ]
+    description = models.TextField(default="")
+    tuition = models.IntegerField(default=0)
+    housing = models.IntegerField(default=0)
+    currency = models.CharField(max_length=3, choices=CURRENCIES, default='USD')
     program = models.OneToOneField(Program, related_name='fee', on_delete=models.PROTECT)
 
 
