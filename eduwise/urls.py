@@ -21,13 +21,14 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+    path('api/oddmin/', admin.site.urls),  # Do not use in production
+    path('chaining/', include('smart_selects.urls')),
     url(r'api/ckeditor/', include('ckeditor_uploader.urls')),
     path('api/', include('locations.urls')),
     path('api/', include('institutions.urls')),
     path('api/', include('programs.urls')),
     path('api/', include('contents.urls')),
     path('api/auth/', include('users.urls')),
-    path('api/oddmin/', admin.site.urls),   # Do not use in production
     url(r'^api/swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     url(r'^api/swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     url(r'^api/redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
