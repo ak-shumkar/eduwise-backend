@@ -2,24 +2,24 @@ from . import models
 from abstract.serializers import AbstractModelSerializer
 
 
-class ProgramTypeI18NSerializer(AbstractModelSerializer):
+class DegreeI18NSerializer(AbstractModelSerializer):
 
     class Meta(AbstractModelSerializer.Meta):
-        model = models.ProgramTypeI18N
+        model = models.DegreeI18N
 
 
-class ProgramTypeSerializer(AbstractModelSerializer):
-    translations = ProgramTypeI18NSerializer(many=True, read_only=True)
+class DegreeSerializer(AbstractModelSerializer):
+    translations = DegreeI18NSerializer(many=True, read_only=True)
 
     class Meta(AbstractModelSerializer.Meta):
-        model = models.ProgramType
+        model = models.Degree
 
 
 class ProgramTypeDetailSerializer(AbstractModelSerializer):
-    translations = ProgramTypeI18NSerializer(many=True, read_only=True)
+    translations = DegreeI18NSerializer(many=True, read_only=True)
 
     class Meta(AbstractModelSerializer.Meta):
-        model = models.ProgramType
+        model = models.Degree
         depth = 1
 
 
@@ -45,7 +45,7 @@ class TermDetailSerializer(AbstractModelSerializer):
 
 class ProgramI18NSerializer(AbstractModelSerializer):
     class Meta(AbstractModelSerializer.Meta):
-        model = models.ProgramTypeI18N
+        model = models.DegreeI18N
 
 
 class FeeSerializer(AbstractModelSerializer):
@@ -59,6 +59,7 @@ class ProgramSerializer(AbstractModelSerializer):
 
     class Meta(AbstractModelSerializer.Meta):
         model = models.Program
+        depth = 1
 
 
 class ApplicationSerializer(AbstractModelSerializer):
