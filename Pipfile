@@ -16,14 +16,19 @@ gunicorn = "==20.1.0"
 django-ckeditor = "==6.2.0"
 django = "==3.2"
 django-environ = "==0.8.1"
-django-jazzmin = "*"
-django-admin-sortable2 = "*"
+django-jazzmin = "*" # 2.4.8
+django-admin-sortable2 = "*" # 1.0.3
+django-filter = "*" # 21.1
+django-smart-selects = "*" # 1.5.9
+django-admin-list-filter-dropdown = "*"
+colorlog = "*"
+beautifulsoup4 = "*"
 
 [dev-packages]
 coverage = "*"
 pytest = "*"
 pytest-django = "*"
-colorlog = "*"
+
 
 [requires]
 python_version = "3.9"
