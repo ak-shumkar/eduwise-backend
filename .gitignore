@@ -2,7 +2,11 @@
 *.pyc
 */__pycache__/*
 .env.dev
+.env
 templates
 draft.py
 media
 TODO
+htmlcov
+demoapp
+staticfiles
