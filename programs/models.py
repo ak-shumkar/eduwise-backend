@@ -1,3 +1,5 @@
+from ckeditor_uploader.fields import RichTextUploadingField
+
 from abstract.models import AbstractDateModel, AbstractDateLocaleModel, AbstractModel
 from django.db import models
 from users.models import User
@@ -62,11 +64,18 @@ class Fee(AbstractDateModel):
     CURRENCIES = [
         ('USD', 'US dollar')
     ]
-    description = models.TextField(default="")
+    description = RichTextUploadingField(default="")
     tuition = models.IntegerField(default=0)
     housing = models.IntegerField(default=0)
     currency = models.CharField(max_length=3, choices=CURRENCIES, default='USD')
-    program = models.OneToOneField(Program, related_name='fee', on_delete=models.PROTECT)
+    program = models.OneToOneField(Program, related_name='fee', on_delete=models.CASCADE, null=True, blank=True)
+    institution = models.OneToOneField("institutions.Institution", related_name='fee', on_delete=models.CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        if self.program:
+            return "Programs' fee"
+        else:
+            return "Institutions' fee"
 
 
 class Application(AbstractDateModel):

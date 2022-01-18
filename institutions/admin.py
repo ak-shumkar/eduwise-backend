@@ -1,9 +1,11 @@
 from django.contrib import admin
 
+from programs.admin import FeeInlineAdmin
 from .models import Institution, InstitutionType
 
 
 class InstitutionAdmin(admin.ModelAdmin):
+    inlines = [FeeInlineAdmin]
     list_display = ('name', 'city', 'get_province', 'get_country')
     raw_id_fields = ("city",)
     search_fields = ('name', )
