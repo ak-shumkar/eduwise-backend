@@ -21,6 +21,7 @@ class Institution(AbstractDateModel):
     """ Institution item """
     name = models.CharField(max_length=128)
     logo = models.ImageField(upload_to='logos', null=True, blank=True)
+    image = models.ImageField('University profile image', upload_to='institutions', null=True, blank=True)
     website = models.URLField(blank=True, null=True)
     about = models.TextField(default='')
     address = models.CharField(max_length=128, default='')
