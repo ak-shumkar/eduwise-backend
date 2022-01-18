@@ -1,5 +1,6 @@
 from django_filters import rest_framework as filters
-from rest_framework.generics import ListAPIView
+from rest_framework.filters import SearchFilter
+
 from abstract.views import AbstractViewSet
 from utils.permissions import IsAdministrator, IsStudentOrAgent, ReadOnlyOrAdmin
 from . import models, serializers
@@ -33,7 +34,8 @@ class ProgramViewSet(AbstractViewSet):
     queryset = models.Program.objects.all()
     serializer_class = serializers.ProgramSerializer
     permission_classes = [ReadOnlyOrAdmin]
-    filter_backends = (filters.DjangoFilterBackend,)
+    filter_backends = (SearchFilter, filters.DjangoFilterBackend,)
+    search_fields = ['title']
     filterset_class = ProgramFilters
 
 
