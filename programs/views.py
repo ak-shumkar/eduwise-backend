@@ -1,9 +1,16 @@
 from django_filters import rest_framework as filters
-
+from rest_framework.generics import ListAPIView
 from abstract.views import AbstractViewSet
 from utils.permissions import IsAdministrator, IsStudentOrAgent, ReadOnlyOrAdmin
 from . import models, serializers
 from .filters import ProgramFilters
+
+
+class DegreeViewSet(AbstractViewSet):
+    model = models.Degree
+    queryset = models.Degree.objects.all()
+    serializer_class = serializers.DegreeSerializer
+    permission_classes = [ReadOnlyOrAdmin]
 
 
 class TermViewSet(AbstractViewSet):
