@@ -1,7 +1,9 @@
+from django.db.models import Q
 from rest_framework import serializers
 
 from . import models
 from abstract.serializers import AbstractModelSerializer
+from institutions.models import Institution
 
 
 class CountryI18NSerializer(AbstractModelSerializer):
@@ -12,10 +14,15 @@ class CountryI18NSerializer(AbstractModelSerializer):
 
 class CountrySerializer(AbstractModelSerializer):
     translations = serializers.SerializerMethodField()
+    institutions_count = serializers.SerializerMethodField(read_only=True)
 
     class Meta(AbstractModelSerializer.Meta):
         model = models.Country
         depth = 1
+
+    @staticmethod
+    def get_institutions_count(country):
+        return Institution.objects.filter(Q(city__country=country) | Q(city__province__country=country)).count()
 
     @staticmethod
     def validate_iso_code(value):
