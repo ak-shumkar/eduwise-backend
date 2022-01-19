@@ -25,8 +25,8 @@ class Institution(AbstractDateModel):
     website = models.URLField(blank=True, null=True)
     about = models.TextField(default='')
     address = models.CharField(max_length=128, default='')
-    latitude = models.FloatField(null=True, blank=True)
-    longitude = models.FloatField(null=True, blank=True)
+    accommodation = models.TextField("Accommodation details", default="")
+    scholarship = models.TextField("Scholarship details", default="")
 
     # Relations
     city = models.ForeignKey('locations.City', related_name='institutions', on_delete=models.PROTECT)
@@ -45,6 +45,8 @@ class InstitutionI18N(AbstractDateLocaleModel):
     name = models.CharField(max_length=128)
     about = models.TextField(default='')
     address = models.CharField(max_length=128, default='')
+    accommodation = models.TextField("Accommodation details", default="")
+    scholarship = models.TextField("Scholarship details", default="")
     institution = models.ForeignKey(Institution, related_name='translations', on_delete=models.PROTECT)
 
     class Meta:
@@ -60,3 +62,11 @@ class Photo(AbstractDateModel):
 
     class Meta:
         db_table = 'photo'
+
+
+class Deadline(AbstractModel):
+    """ Deadlines for university admissions """
+    season = models.DateField()
+    application_deadline = models.DateField()
+    program_start = models.DateField()
+    institution = models.ForeignKey(Institution, on_delete=models.CASCADE, related_name='deadlines')
