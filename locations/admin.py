@@ -3,14 +3,16 @@ from django.contrib import admin
 from django_admin_listfilter_dropdown.filters import RelatedDropdownFilter
 
 from .models import City, Province, Country, CountryI18N, ProvinceI18N, CityI18N
-from .forms import CountryForm
+from .forms import CountryForm, CityForm
 
 
 class CityI18NInlineAdmin(admin.TabularInline):
     model = CityI18N
+    extra = 0
 
 
 class CityAdmin(admin.ModelAdmin):
+    form = CityForm
     inlines = [CityI18NInlineAdmin]
     list_display = ("name", 'province', 'country')
     search_fields = ("name", 'province__name', 'country__name')
