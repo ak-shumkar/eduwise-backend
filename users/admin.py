@@ -1,4 +1,10 @@
 from django.contrib import admin
+from django.contrib.auth.models import Group
+from django.contrib.sites.models import Site
+
+from allauth.socialaccount.models import SocialToken
+from allauth.account.models import EmailAddress
+
 from .models import User
 
 
@@ -11,3 +17,7 @@ class UserAdmin(admin.ModelAdmin):
 
 
 admin.site.register(User, UserAdmin)
+admin.site.unregister(Group)
+admin.site.unregister(Site)
+admin.site.unregister(SocialToken)
+admin.site.unregister(EmailAddress)
