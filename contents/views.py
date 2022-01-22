@@ -25,3 +25,9 @@ class NewsViewSet(ModelViewSet):
     queryset = models.News.objects.all()
     serializer_class = serializers.NewsSerializer
     permission_classes = [ReadOnlyOrAdmin]
+
+
+class ProcessViewSet(ModelViewSet):
+    queryset = models.Process.objects.all()
+    serializer_class = serializers.ProcessSerializer
+    permission_classes = [ReadOnlyOrAdmin]

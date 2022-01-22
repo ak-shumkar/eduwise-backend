@@ -95,3 +95,26 @@ class NewsSerializer(ModelSerializer):
 
             result.update({translation.locale: serializer.data})
         return result
+
+
+class ProcessI18NSerializer(ModelSerializer):
+    class Meta:
+        model = models.ProcessI18N
+        fields = '__all__'
+
+
+class ProcessSerializer(ModelSerializer):
+    translations = SerializerMethodField()
+
+    class Meta:
+        model = models.Process
+        fields = '__all__'
+
+    @staticmethod
+    def get_translations(obj):
+        result = dict()
+        for translation in obj.translations.all():
+            serializer = ProcessI18NSerializer(translation)
+
+            result.update({translation.locale: serializer.data})
+        return result

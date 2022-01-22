@@ -101,3 +101,24 @@ class NewsI18N(AbstractLocaleModel):
 
     class Meta:
         verbose_name = 'News translation'
+
+
+class Process(AbstractDateModel):
+    title = models.CharField(max_length=256)
+    body = RichTextUploadingField()
+
+    class Meta:
+        db_table = 'process'
+        verbose_name_plural = 'How we work'
+
+    def __str__(self):
+        return self.title
+
+
+class ProcessI18N(AbstractLocaleModel):
+    title = models.CharField(max_length=256)
+    body = RichTextUploadingField()
+    news = models.ForeignKey(Process, related_name='translations', on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'How we work translation'
