@@ -9,6 +9,9 @@ class Degree(AbstractDateModel):
     """ Degrees like BS, MS, PHD etc."""
     name = models.CharField(max_length=128)
 
+    class Meta:
+        verbose_name = 'Program level'
+
     def __str__(self):
         return self.name
 
@@ -33,6 +36,27 @@ class TermI18N(AbstractDateLocaleModel):
     term = models.ForeignKey(Term, related_name='translations', on_delete=models.PROTECT)
 
 
+class Faculty(AbstractDateModel):
+    """ Faculties like Engineering, Medicine etc... """
+    name = models.CharField(max_length=128, unique=True)
+
+    class Meta:
+        db_table = 'faculty'
+        verbose_name_plural = 'Faculties'
+
+    def __str__(self):
+        return self.name
+
+
+class FacultyI18N(AbstractDateModel):
+    """ Faculty translation  """
+    name = models.CharField(max_length=128)
+    faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE, related_name='translations')
+
+    class Meta:
+        verbose_name = 'faculty translation'
+
+
 class Program(AbstractDateModel):
     """ Program """
     overview = models.TextField('Description')
@@ -46,7 +70,8 @@ class Program(AbstractDateModel):
     institution = models.ForeignKey('institutions.Institution',
                                     on_delete=models.PROTECT,
                                     related_name='programs')
-    degree = models.OneToOneField(Degree, on_delete=models.PROTECT, related_name='degree', null=True, blank=True)
+    degree = models.ForeignKey(Degree, on_delete=models.PROTECT, related_name='programs', null=True, blank=True)
+    faculty = models.ForeignKey(Faculty, on_delete=models.PROTECT, related_name='programs', null=True, blank=True)
 
     def __str__(self):
         return self.title

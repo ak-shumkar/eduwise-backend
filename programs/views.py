@@ -43,7 +43,7 @@ class FeeViewSet(AbstractViewSet):
     model = models.Fee
     queryset = models.Fee.objects.all()
     serializer_class = serializers.FeeSerializer
-    permission_classes = [IsAdministrator]
+    permission_classes = [ReadOnlyOrAdmin]
 
 
 class ApplicationViewSet(AbstractViewSet):
