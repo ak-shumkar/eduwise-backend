@@ -1,11 +1,16 @@
 from django.contrib import admin
 
 from programs.admin import FeeInlineAdmin
-from .models import Institution, InstitutionType
+from .models import Institution, InstitutionType, Deadline
+
+
+class DeadlineInlineAdmin(admin.TabularInline):
+    model = Deadline
+    extra = 0
 
 
 class InstitutionAdmin(admin.ModelAdmin):
-    inlines = [FeeInlineAdmin]
+    inlines = [FeeInlineAdmin, DeadlineInlineAdmin]
     list_display = ('name', 'city', 'get_province', 'get_country')
     raw_id_fields = ("city",)
     search_fields = ('name', )
