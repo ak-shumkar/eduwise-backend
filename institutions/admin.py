@@ -1,12 +1,17 @@
 from django.contrib import admin
 
-from programs.admin import FeeInlineAdmin
+from programs.models import Fee
 from .models import Institution, InstitutionType, Deadline
 
 
 class DeadlineInlineAdmin(admin.TabularInline):
     model = Deadline
     extra = 0
+
+
+class FeeInlineAdmin(admin.TabularInline):
+    model = Fee
+    exclude = ['program']
 
 
 class InstitutionAdmin(admin.ModelAdmin):
