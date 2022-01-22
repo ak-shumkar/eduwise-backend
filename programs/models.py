@@ -87,7 +87,16 @@ class ProgramI18N(AbstractDateLocaleModel):
 class Fee(AbstractDateModel):
     """ Fees for tuition, dormitory etc"""
     CURRENCIES = [
-        ('USD', 'US dollar')
+        ('USD', 'US dollar'),
+        ('GBP', 'British pound'),
+        ('CAD', 'Canadian dollar'),
+        ('EUR', 'Euro'),
+        ('CNY', 'Renminbi (Chinese yen)'),
+        ('KRW', 'Korean won'),
+        ('RUB', 'Russian ruble'),
+        ('TRY', 'Turkish lira'),
+
+        ('KGS', 'Kyrgyz som'),
     ]
     description = RichTextUploadingField(default="")
     tuition = models.IntegerField(default=0)
