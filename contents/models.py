@@ -7,7 +7,7 @@ from abstract.models import AbstractLocaleModel, AbstractDateModel
 class Menu(AbstractDateModel):
     """ A dynamic menu in navbar """
     title = models.CharField(max_length=256, unique=True)
-    order = models.PositiveIntegerField(default=0)
+    order = models.PositiveIntegerField(default=0, null=False, blank=False)
 
     class Meta:
         db_table = 'menu'
@@ -80,3 +80,24 @@ class TextBlockMenuI18N(AbstractLocaleModel):
     class Meta:
         db_table = 'text_block_i18n'
         verbose_name = 'post translation'
+
+
+class News(AbstractDateModel):
+    title = models.CharField(max_length=256)
+    body = RichTextUploadingField()
+
+    class Meta:
+        db_table = 'news'
+        verbose_name_plural = 'News'
+
+    def __str__(self):
+        return self.title
+
+
+class NewsI18N(AbstractLocaleModel):
+    title = models.CharField(max_length=256)
+    body = RichTextUploadingField()
+    news = models.ForeignKey(News, related_name='translations', on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'News translation'

@@ -72,3 +72,26 @@ class MenuSerializer(ModelSerializer):
 
             result.update({translation.locale: serializer.data})
         return result
+
+
+class NewsI18NSerializer(ModelSerializer):
+    class Meta:
+        model = models.NewsI18N
+        fields = '__all__'
+
+
+class NewsSerializer(ModelSerializer):
+    translations = SerializerMethodField()
+
+    class Meta:
+        model = models.News
+        fields = '__all__'
+
+    @staticmethod
+    def get_translations(obj):
+        result = dict()
+        for translation in obj.translations.all():
+            serializer = NewsI18NSerializer(translation)
+
+            result.update({translation.locale: serializer.data})
+        return result

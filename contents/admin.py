@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
 
-from .models import Menu, SubMenu, TextBlock, MenuI18N, SubMenuI18N, TextBlockMenuI18N
+from .models import Menu, SubMenu, TextBlock, MenuI18N, SubMenuI18N, TextBlockMenuI18N, News, NewsI18N
 
 
 class TextBlockI18NInlineAdmin(admin.TabularInline):
@@ -44,6 +44,19 @@ class MenuAdmin(SortableAdminMixin, admin.ModelAdmin):
         model = Menu
 
 
+class NewsI18NInlineAdmin(admin.TabularInline):
+    model = NewsI18N
+    extra = 0
+
+
+class NewsAdmin(admin.ModelAdmin):
+    inlines = [NewsI18NInlineAdmin]
+
+    class Meta:
+        model = News
+
+
 admin.site.register(TextBlock, TextBlockAdmin)
 admin.site.register(SubMenu, SubMenuAdmin)
 admin.site.register(Menu, MenuAdmin)
+admin.site.register(News, NewsAdmin)
