@@ -4,6 +4,7 @@ from .models import Program, Fee, Degree, Faculty, FacultyI18N
 
 class FeeInlineAdmin(admin.TabularInline):
     model = Fee
+    exclude = ['institution']
 
 
 class ProgramAdmin(admin.ModelAdmin):
