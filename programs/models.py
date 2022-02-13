@@ -39,6 +39,7 @@ class TermI18N(AbstractDateLocaleModel):
 class Faculty(AbstractDateModel):
     """ Faculties like Engineering, Medicine etc... """
     name = models.CharField(max_length=128, unique=True)
+    icon = models.CharField(max_length=64, default="")  # icon class name
 
     class Meta:
         db_table = 'faculty'
