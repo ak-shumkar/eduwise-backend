@@ -46,6 +46,13 @@ class FeeViewSet(AbstractViewSet):
     permission_classes = [ReadOnlyOrAdmin]
 
 
+class FacultyViewSet(AbstractViewSet):
+    model = models.Faculty
+    queryset = models.Faculty.objects.all()
+    serializer_class = serializers.FacultySerializer
+    permission_classes = [ReadOnlyOrAdmin]
+
+
 class ApplicationViewSet(AbstractViewSet):
     model = models.Application
     queryset = models.Application.objects.all()

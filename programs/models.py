@@ -42,7 +42,8 @@ class Faculty(AbstractDateModel):
 
     class Meta:
         db_table = 'faculty'
-        verbose_name_plural = 'Faculties'
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
 
     def __str__(self):
         return self.name

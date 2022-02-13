@@ -71,3 +71,15 @@ class ApplicationSerializer(AbstractModelSerializer):
 class ApplicationDetailSerializer(AbstractModelSerializer):
     class Meta(AbstractModelSerializer.Meta):
         model = models.Application
+
+
+class FacultyI18NSerializer(AbstractModelSerializer):
+    class Meta(AbstractModelSerializer.Meta):
+        model = models.FacultyI18N
+
+
+class FacultySerializer(AbstractModelSerializer):
+    translations = FacultyI18NSerializer(many=True, read_only=True)
+
+    class Meta(AbstractModelSerializer.Meta):
+        model = models.Faculty
