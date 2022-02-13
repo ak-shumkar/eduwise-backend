@@ -84,6 +84,7 @@ class TextBlockMenuI18N(AbstractLocaleModel):
 
 class News(AbstractDateModel):
     title = models.CharField(max_length=256)
+    image = models.ImageField(upload_to='news', blank=True, null=True)
     body = RichTextUploadingField()
 
     class Meta:
