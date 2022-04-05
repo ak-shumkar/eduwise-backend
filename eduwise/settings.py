@@ -128,8 +128,8 @@ DATABASES = {
     },
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env('POSTGRES_NAME', default='eduwise'),
-        'USER': env('POSTGRES_USER', default='polygon'),
+        'NAME': env('POSTGRES_NAME', default='postgres'),
+        'USER': env('POSTGRES_USER', default='postgres'),
         'HOST': env('POSTGRES_HOST', default='localhost'),
         'PORT': env('POSTGRES_PORT', default='5432'),
         'PASSWORD': env('POSTGRES_PASSWORD', default='AC1298861'),
