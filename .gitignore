@@ -1,6 +1,6 @@
 .idea
 *.pyc
-*/__pycache__/*
+**/__pycache__/**
 .env.dev
 .env
 templates
@@ -10,3 +10,4 @@ TODO
 htmlcov
 demoapp
 staticfiles
+.coverage
