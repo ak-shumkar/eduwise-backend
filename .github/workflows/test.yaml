@@ -4,6 +4,26 @@ on: push
 jobs:
   unit-test:
     runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        db: [postgres]
+        include:
+          - db: postgres
+            db_port: 5432
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python 3.9
@@ -23,6 +43,11 @@ jobs:
 #          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
 #          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: Test with pytest
+        env:
+          DB: ${{ matrix.db }}
+          DB_HOST: 127.0.0.1
+          DB_PORT: ${{ matrix.db_port }}
+          DB_PASSWORD: postgres
         run: |
           pipenv install --dev
           pipenv run pytest
