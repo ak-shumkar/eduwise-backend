@@ -21,12 +21,15 @@ jobs:
           - 5432:5432
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Set up Python 3.9
         uses: actions/setup-python@v2
         with:
           python-version: 3.9
+
+      - name: psycopg2 prerequisites
+        run: sudo apt-get install libpq-dev
 
       - name: Install dependencies
         run: |
@@ -46,9 +49,3 @@ jobs:
         run: |
           pipenv install --dev
           pipenv run pytest
-        env:
-          POSTGRES_NAME: postgres
-          POTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
-          POSTGRES_HOST: 127.0.0.1
