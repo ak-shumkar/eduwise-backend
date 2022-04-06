@@ -4,13 +4,6 @@ on: push
 jobs:
   unit-test:
     runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 4
-      matrix:
-        db: [postgres]
-        include:
-          - db: postgres
-            db_port: 5432
     services:
       postgres:
         image: postgres:14
@@ -18,6 +11,8 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_NAME: postgres
+          POSTGRES_HOST: 127.0.0.1
+          POSTGRES_PORT: 5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -46,12 +41,6 @@ jobs:
       - name: Run Migrations # run migrations to create table in side car db container
         run: pipenv run python manage.py migrate
       - name: Run tests
-        env:
-          POSTGRES_NAME: ${{ matrix.db }}
-          POSTGRES_HOST: 127.0.0.1
-          POSTGRES_PORT: ${{ matrix.db_port }}
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_USER: postgres
         run: |
           pipenv install --dev
           pipenv run pytest
