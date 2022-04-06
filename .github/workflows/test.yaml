@@ -28,9 +28,6 @@ jobs:
         with:
           python-version: 3.9
 
-      - name: psycopg2 prerequisites
-        run: sudo apt-get install libpq-dev
-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -43,21 +40,5 @@ jobs:
 #          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
 #          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
 #          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-      - name: Run Migrations # run migrations to create table in side car db container
-        run: pipenv run python manage.py migrate
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_NAME: postgres
-          POSTGRES_HOST: 127.0.0.1
-          POSTGRES_PORT: 5432
-      - name: Run tests
-        run: |
-          pipenv install --dev
-          pipenv run pytest
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_NAME: postgres
-          POSTGRES_HOST: 127.0.0.1
-          POSTGRES_PORT: 5432
+      - name: Django Test CI
+        uses: UKnowWhoIm/django-test-action@v0.6.1
