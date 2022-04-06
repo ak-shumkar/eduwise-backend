@@ -45,7 +45,19 @@ jobs:
 #          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: Run Migrations # run migrations to create table in side car db container
         run: pipenv run python manage.py migrate
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_NAME: postgres
+          POSTGRES_HOST: 127.0.0.1
+          POSTGRES_PORT: 5432
       - name: Run tests
         run: |
           pipenv install --dev
           pipenv run pytest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_NAME: postgres
+          POSTGRES_HOST: 127.0.0.1
+          POSTGRES_PORT: 5432
