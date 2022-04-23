@@ -33,7 +33,7 @@ SECRET_KEY = env('SECRET_KEY', default='django-insecure-$xtn-y&n(gj6+byfb9!*s8m_
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(env('DEBUG', default=1)))
-print('DEBUG', DEBUG)
+
 ALLOWED_HOSTS = []
 ALLOWED_HOSTS.extend(
     filter(
@@ -132,7 +132,7 @@ DATABASES = {
         'USER': env('POSTGRES_USER', default='postgres'),
         'HOST': env('POSTGRES_HOST', default='localhost'),
         'PORT': env('POSTGRES_PORT', default='5432'),
-        'PASSWORD': env('POSTGRES_PASSWORD', default='AC1298861'),
+        'PASSWORD': env('POSTGRES_PASSWORD', default='postgres'),
         'ATOMIC_REQUESTS': True
     }
 }
@@ -246,7 +246,7 @@ DJOSER = {
 
 ADMINS = [('Mamatkasym', 'mm.kalandar@gmail.com')]
 
-if env('ENVIRONMENT', default='production') == 'production':
+if env('ENVIRONMENT', default='development') == 'production':
     SECURE_BROWSER_XSS_FILTER = True
     X_FRAME_OPTIONS = 'DENY'
     SECURE_SSL_REDIRECT = True
@@ -320,32 +320,33 @@ JAZZMIN_SETTINGS = {
     "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
 }
 
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "root": {"level": "INFO", "handlers": ["file"]},
-    "handlers": {
-        "file": {
-            "level": "INFO",
-            "class": "logging.FileHandler",
-            "filename": "eduwise.log",
-            "formatter": "app",
+if env('ENVIRONMENT', default='development') == 'production':
+    LOGGING = {
+        "version": 1,
+        "disable_existing_loggers": False,
+        "root": {"level": "INFO", "handlers": ["file"]},
+        "handlers": {
+            "file": {
+                "level": "INFO",
+                "class": "logging.FileHandler",
+                "filename": "etc/var/eduwise.log",
+                "formatter": "app",
+            },
         },
-    },
-    "loggers": {
-        "django": {
-            "handlers": ["file"],
-            "level": "INFO",
-            "propagate": True
+        "loggers": {
+            "django": {
+                "handlers": ["file"],
+                "level": "INFO",
+                "propagate": True
+            },
         },
-    },
-    "formatters": {
-        "app": {
-            "format": (
-                u"%(asctime)s [%(levelname)-8s] "
-                "(%(module)s.%(funcName)s) %(message)s"
-            ),
-            "datefmt": "%Y-%m-%d %H:%M:%S",
+        "formatters": {
+            "app": {
+                "format": (
+                    u"%(asctime)s [%(levelname)-8s] "
+                    "(%(module)s.%(funcName)s) %(message)s"
+                ),
+                "datefmt": "%Y-%m-%d %H:%M:%S",
+            },
         },
-    },
-}
+    }
