@@ -75,6 +75,7 @@ INSTALLED_APPS = [
     'adminsortable2',
     'django_filters',
     'django_admin_listfilter_dropdown',
+    'phonenumber_field',
 
     # Eduwise apps
     'users.apps.UsersConfig',
