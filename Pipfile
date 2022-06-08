@@ -23,12 +23,14 @@ django-smart-selects = "==1.5.9"
 django-admin-list-filter-dropdown = "*"
 colorlog = "*"
 beautifulsoup4 = "*"
+django-phonenumber-field = "*"
+phonenumbers = "*"
+factory-boy = "*"
 
 [dev-packages]
 coverage = "*"
 pytest = "*"
 pytest-django = "*"
-
 
 [requires]
 python_version = "3.9"

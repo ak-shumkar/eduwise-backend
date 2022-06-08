@@ -1,6 +1,0 @@
-2022-04-05 22:32:49 [INFO    ] (autoreload.run_with_reloader) Watching for file changes with StatReloader
-2022-04-05 22:32:49 [INFO    ] (autoreload.run_with_reloader) Watching for file changes with StatReloader
-2022-04-05 22:33:19 [INFO    ] (autoreload.trigger_reload) /Users/mamatkasym/PycharmProjects/eduwise/eduwise/settings.py changed, reloading.
-2022-04-05 22:33:19 [INFO    ] (autoreload.trigger_reload) /Users/mamatkasym/PycharmProjects/eduwise/eduwise/settings.py changed, reloading.
-2022-04-05 22:33:20 [INFO    ] (autoreload.run_with_reloader) Watching for file changes with StatReloader
-2022-04-05 22:33:20 [INFO    ] (autoreload.run_with_reloader) Watching for file changes with StatReloader
