@@ -4,18 +4,6 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-@pytest.fixture
-def student():
-    student = User(username='student', password='secret')
-    return student
-
-
-@pytest.fixture
-def agent():
-    agent = User(username='agent', password='secret', role='A')
-    return agent
-
-
 @pytest.mark.django_db
 def test_create_default_user():
     user = User(username="alex", password='secret')
@@ -32,9 +20,11 @@ def test_create_default_user():
     assert db_user.is_active
 
 
+@pytest.mark.django_db
 def test_is_student(student):
     assert student.is_student
 
 
+@pytest.mark.django_db
 def test_is_agent(agent):
     assert agent.is_agent
