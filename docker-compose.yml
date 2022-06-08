@@ -1,27 +1,30 @@
-version: '3.7'
+version: "3.9"
 
 services:
-  api:
+  db:
+    container_name: postgres
+    image: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  web:
+    container_name: django
     build: .
-    ports:
-      - 8000:8000
-    command: >
-      bash -c "python manage.py migrate &&
-                python manage.py runserver 0.0.0.0:8000"
-    env_file:
-      - .env.dev
+    command: python manage.py runserver localhost:8000
     volumes:
       - .:/api
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=db
     depends_on:
       - db
-  db:
-    image: 'postgres:13'
-    env_file:
-      - .env.dev
-    volumes:
-      - db-data:/var/lib/postgresql/data/
-    ports:
-      - "5433:5432"
 
 volumes:
-  db-data:
+  pgdata:
