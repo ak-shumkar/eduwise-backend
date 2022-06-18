@@ -78,11 +78,11 @@ INSTALLED_APPS = [
     'phonenumber_field',
 
     # Eduwise apps
-    'users.apps.UsersConfig',
-    'locations.apps.LocationsConfig',
-    'institutions.apps.InstitutionsConfig',
-    'programs.apps.ProgramsConfig',
-    'contents.apps.ContentsConfig',
+    'eduwise.users.apps.UsersConfig',
+    'eduwise.locations.apps.LocationsConfig',
+    'eduwise.institutions.apps.InstitutionsConfig',
+    'eduwise.programs.apps.ProgramsConfig',
+    'eduwise.contents.apps.ContentsConfig',
 ]
 
 SITE_ID = 1
@@ -98,7 +98,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'eduwise.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -239,8 +239,8 @@ SWAGGER_SETTINGS = {
 # Djoser custom configurations
 DJOSER = {
     'SERIALIZERS': {
-        'user_create': 'users.djoser.serializers.UserRegistrationSerializer',
-        'user': 'users.djoser.serializers.UserDetailsSerializer',
+        'user_create': 'eduwise.users.djoser.serializers.UserRegistrationSerializer',
+        'user': 'eduwise.users.djoser.serializers.UserDetailsSerializer',
         #         'current_user': 'users.djoser.serializers.UserDetailSerializer'
     }
 }
