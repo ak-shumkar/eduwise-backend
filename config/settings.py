@@ -16,7 +16,6 @@ from datetime import timedelta
 from pathlib import Path
 
 from django.conf import settings
-from django.utils.translation import gettext_lazy as _
 
 env = environ.Env()
 
@@ -103,8 +102,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -330,7 +328,7 @@ if env('ENVIRONMENT', default='development') == 'production':
             "file": {
                 "level": "INFO",
                 "class": "logging.FileHandler",
-                "filename": "etc/var/config.log",
+                "filename": "etc/var/eduwise.log",
                 "formatter": "app",
             },
         },
