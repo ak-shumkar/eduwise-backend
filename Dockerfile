@@ -4,10 +4,10 @@ ENV PYTHONDONTWRITEBYTECODE=1
 
 WORKDIR /api
 
-COPY Pipfile Pipfile
-COPY Pipfile.lock Pipfile.lock
-RUN pip install --upgrade pip
-RUN pip install pipenv
-RUN pipenv install --deploy --system
+COPY Pipfile /api/
+COPY Pipfile.lock /api/
+RUN pip install --upgrade pip && \
+    pip install pipenv && \
+    pipenv install --deploy --system --ignore-pipfile
 
-COPY . .
+COPY . /api/
