@@ -4,8 +4,8 @@ import random
 
 from string import ascii_lowercase
 
-from users.djoser import serializers
-from users.models import User
+from eduwise.users.djoser import serializers
+from eduwise.users.models import User
 
 
 @pytest.mark.django_db
@@ -81,7 +81,7 @@ class TestUserDetailsSerializer(unittest.TestCase):
         self.assertCountEqual(data.keys(), fields)
 
     def test_read_only_fields(self):
-        read_only_fields = ['last_login', 'is_staff', 'id', 'role', 'is_active', 'date_joined', 'is_superuser']
+        # read_only_fields = ['last_login', 'is_staff', 'id', 'role', 'is_active', 'date_joined', 'is_superuser']
         serializer = serializers.UserDetailsSerializer(data={'id': 1})
         serializer.is_valid()
         print(serializer.errors)
