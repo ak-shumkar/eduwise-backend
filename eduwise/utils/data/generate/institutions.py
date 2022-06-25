@@ -5,7 +5,7 @@ from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
 from django.db.utils import IntegrityError
 from bs4 import BeautifulSoup
 from eduwise.locations.models import City
-from eduwise.institutions import Institution, InstitutionType
+from eduwise.institutions.models import Institution, InstitutionType
 from eduwise.utils.logging.logger import logger
 
 
@@ -58,7 +58,7 @@ def create_university(given_country, name, website):
         print(given_country, "!=", country)
         return
 
-    print(city,"|", province, "|", country)
+    print(city, "|", province, "|", country)
     try:
         if City.objects.filter(country__name=country, province__name=province, name=city).exists():
             city_object = City.objects.get(country__name=country, province__name=province, name=city)
@@ -73,7 +73,8 @@ def create_university(given_country, name, website):
             if Institution.objects.filter(name=name, city=city_object).exists():
                 logger.exception(f'University {name} already exists')
             else:
-                Institution.objects.create(name=name, city=city_object, address="", about="", website=website, institution_type=tp)
+                Institution.objects.create(name=name, city=city_object, address="", about="", website=website,
+                                           institution_type=tp)
         except IntegrityError:
             logger.exception(f'University {name} already exists')
         except Exception as e:

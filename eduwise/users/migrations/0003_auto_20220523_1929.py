@@ -29,7 +29,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='user',
             name='username',
-            field=models.CharField(error_messages={'unique': 'A user with that username already exists.'}, help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.', max_length=150, unique=True, validators=[django.contrib.auth.validators.UnicodeUsernameValidator()], verbose_name='username'),
+            field=models.CharField(error_messages={'unique': 'A user with that username already exists.'},
+                                   help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.',
+                                   max_length=150, unique=True,
+                                   validators=[django.contrib.auth.validators.UnicodeUsernameValidator()],
+                                   verbose_name='username'),
         ),
         migrations.CreateModel(
             name='StudentProfile',
@@ -40,11 +44,14 @@ class Migration(migrations.Migration):
                 ('middle_name', models.CharField(blank=True, max_length=128, null=True)),
                 ('gender', models.CharField(blank=True, max_length=8, null=True)),
                 ('birthdate', models.DateField(blank=True, null=True)),
-                ('phone', phonenumber_field.modelfields.PhoneNumberField(blank=True, max_length=128, null=True, region=None)),
+                ('phone', phonenumber_field.modelfields.PhoneNumberField(
+                    blank=True, max_length=128, null=True, region=None)),
                 ('education_level', models.CharField(blank=True, max_length=64, null=True)),
                 ('motivation', models.TextField(blank=True, null=True)),
-                ('country', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='locations.country')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.PROTECT, related_name='profile', to=settings.AUTH_USER_MODEL)),
+                ('country', models.ForeignKey(blank=True, null=True,
+                 on_delete=django.db.models.deletion.PROTECT, to='locations.country')),
+                ('user', models.OneToOneField(on_delete=django.db.models.deletion.PROTECT,
+                 related_name='profile', to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'db_table': 'student_profile',

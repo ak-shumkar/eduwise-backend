@@ -32,7 +32,8 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('title', models.CharField(max_length=256)),
-                ('menu', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='submenus', to='contents.menu')),
+                ('menu', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT,
+                                           related_name='submenus', to='contents.menu')),
             ],
             options={
                 'db_table': 'submenu',
@@ -45,7 +46,8 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('content', ckeditor_uploader.fields.RichTextUploadingField()),
-                ('submenu', models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, related_name='posts', to='contents.submenu')),
+                ('submenu', models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT,
+                                              related_name='posts', to='contents.submenu')),
             ],
             options={
                 'verbose_name': 'post',
@@ -56,9 +58,12 @@ class Migration(migrations.Migration):
             name='TextBlockMenuI18N',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('locale', models.CharField(choices=[('en', 'English'), ('ru', 'Russian'), ('tr', 'Turkish'), ('kg', 'Kyrgyz')], max_length=2)),
+                ('locale', models.CharField(choices=[('en', 'English'), ('ru', 'Russian'),
+                                                     ('tr', 'Turkish'), ('kg', 'Kyrgyz')], max_length=2)),
                 ('content', ckeditor_uploader.fields.RichTextUploadingField(verbose_name='Translation')),
-                ('text_block', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='translations', to='contents.textblock', verbose_name='Original name')),
+                ('text_block', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT,
+                                                 related_name='translations', to='contents.textblock',
+                                                 verbose_name='Original name')),
             ],
             options={
                 'verbose_name': 'post translation',
@@ -69,9 +74,12 @@ class Migration(migrations.Migration):
             name='SubMenuI18N',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('locale', models.CharField(choices=[('en', 'English'), ('ru', 'Russian'), ('tr', 'Turkish'), ('kg', 'Kyrgyz')], max_length=2)),
+                ('locale', models.CharField(choices=[('en', 'English'), ('ru', 'Russian'),
+                                                     ('tr', 'Turkish'), ('kg', 'Kyrgyz')], max_length=2)),
                 ('title', models.CharField(max_length=256, verbose_name='Translation')),
-                ('submenu', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='translations', to='contents.submenu', verbose_name='Original name')),
+                ('submenu', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT,
+                                              related_name='translations', to='contents.submenu',
+                                              verbose_name='Original name')),
             ],
             options={
                 'verbose_name': 'submenu translation',
@@ -82,9 +90,11 @@ class Migration(migrations.Migration):
             name='MenuI18N',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('locale', models.CharField(choices=[('en', 'English'), ('ru', 'Russian'), ('tr', 'Turkish'), ('kg', 'Kyrgyz')], max_length=2)),
+                ('locale', models.CharField(choices=[('en', 'English'), ('ru', 'Russian'),
+                                                     ('tr', 'Turkish'), ('kg', 'Kyrgyz')], max_length=2)),
                 ('title', models.CharField(max_length=256, verbose_name='Translation')),
-                ('menu', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='translations', to='contents.menu', verbose_name='Original name')),
+                ('menu', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='translations',
+                                           to='contents.menu', verbose_name='Original name')),
             ],
             options={
                 'verbose_name': 'menu translation',

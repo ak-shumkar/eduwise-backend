@@ -42,7 +42,8 @@ def generate_provinces():
 
     for country in countries:
         try:
-            response = requests.post('https://countriesnow.space/api/v0.1/countries/states', data={"country": country.name})
+            response = requests.post('https://countriesnow.space/api/v0.1/countries/states',
+                                     data={"country": country.name})
         except Exception as e:
             print(e)
             print(f'Cannot get states of country {country.name}')
@@ -84,7 +85,7 @@ def generate_cities():
     for province in provinces:
         try:
             response = requests.post('https://countriesnow.space/api/v0.1/countries/state/cities',
-                                    data={'country': province.country.name, 'state': province.name})
+                                     data={'country': province.country.name, 'state': province.name})
         except Exception as e:
             print(e)
             print(f'Cannot get cities in province {province.name}')

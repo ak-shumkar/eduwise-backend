@@ -14,7 +14,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='program',
             name='faculty',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='programs', to='programs.faculty'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT,
+                                    related_name='programs', to='programs.faculty'),
         ),
         migrations.AlterField(
             model_name='faculty',
@@ -24,7 +25,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='program',
             name='degree',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='programs', to='programs.degree'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT,
+                                    related_name='programs', to='programs.degree'),
         ),
         migrations.AlterModelTable(
             name='faculty',

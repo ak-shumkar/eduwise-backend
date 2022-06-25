@@ -106,7 +106,8 @@ class Fee(AbstractDateModel):
     other = models.IntegerField(default=0)
     currency = models.CharField(max_length=3, choices=CURRENCIES, default='USD')
     program = models.OneToOneField(Program, related_name='fee', on_delete=models.CASCADE, null=True, blank=True)
-    institution = models.OneToOneField("institutions.Institution", related_name='fee', on_delete=models.CASCADE, null=True, blank=True)
+    institution = models.OneToOneField("institutions.Institution", related_name='fee', on_delete=models.CASCADE,
+                                       null=True, blank=True)
 
     def __str__(self):
         if self.program:

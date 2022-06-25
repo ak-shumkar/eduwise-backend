@@ -30,10 +30,12 @@ class Migration(migrations.Migration):
             name='ProcessI18N',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('locale', models.CharField(choices=[('en', 'English'), ('ru', 'Russian'), ('tr', 'Turkish'), ('kg', 'Kyrgyz')], max_length=2)),
+                ('locale', models.CharField(choices=[('en', 'English'), ('ru', 'Russian'),
+                                                     ('tr', 'Turkish'), ('kg', 'Kyrgyz')], max_length=2)),
                 ('title', models.CharField(max_length=256)),
                 ('body', ckeditor_uploader.fields.RichTextUploadingField()),
-                ('news', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='translations', to='contents.process')),
+                ('news', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='translations',
+                                           to='contents.process')),
             ],
             options={
                 'verbose_name': 'How we work translation',

@@ -11,7 +11,7 @@ class ProgramAdmin(admin.ModelAdmin):
     inlines = [FeeInlineAdmin]
     fieldsets = (
         (None, {
-           'fields': ('title', 'institution', 'degree', 'faculty')
+            'fields': ('title', 'institution', 'degree', 'faculty')
         }),
         ('Extra', {
             'fields': ('website', 'duration')

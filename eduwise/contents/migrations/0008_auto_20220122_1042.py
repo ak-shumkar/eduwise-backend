@@ -21,7 +21,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='newsi18n',
             name='locale',
-            field=models.CharField(choices=[('en', 'English'), ('ru', 'Russian'), ('tr', 'Turkish'), ('kg', 'Kyrgyz')], default=1, max_length=2),
+            field=models.CharField(choices=[('en', 'English'), ('ru', 'Russian'),
+                                            ('tr', 'Turkish'), ('kg', 'Kyrgyz')], default=1, max_length=2),
             preserve_default=False,
         ),
     ]

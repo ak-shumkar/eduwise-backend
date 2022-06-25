@@ -22,7 +22,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='facultyi18n',
             name='faculty',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='translations', to='programs.faculty'),
+            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='translations',
+                                    to='programs.faculty'),
             preserve_default=False,
         ),
     ]
