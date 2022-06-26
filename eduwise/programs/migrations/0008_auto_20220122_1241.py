@@ -18,6 +18,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='fee',
             name='currency',
-            field=models.CharField(choices=[('USD', 'US dollar'), ('GBP', 'British pound'), ('CAD', 'Canadian dollar'), ('EUR', 'Euro'), ('CNY', 'Renminbi (Chinese yen)'), ('KRW', 'Korean won'), ('RUB', 'Russian ruble'), ('TRY', 'Turkish lira'), ('KGS', 'Kyrgyz som')], default='USD', max_length=3),
+            field=models.CharField(choices=[('USD', 'US dollar'), ('GBP', 'British pound'), ('CAD', 'Canadian dollar'),
+                                            ('EUR', 'Euro'), ('CNY', 'Renminbi (Chinese yen)'), ('KRW', 'Korean won'),
+                                            ('RUB', 'Russian ruble'), ('TRY', 'Turkish lira'), ('KGS', 'Kyrgyz som')],
+                                   default='USD', max_length=3),
         ),
     ]

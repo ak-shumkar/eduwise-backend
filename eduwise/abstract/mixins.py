@@ -15,10 +15,10 @@ class TranslatedSerializerMixin(object):
         result = {}
         for field_name, field in self.get_fields().items():
             # add normal field to resulting representation
-            if field_name is not 'translations':
+            if field_name != 'translations':
                 field_value = inst_rep.pop(field_name)
                 result.update({field_name: field_value})
-            if field_name is 'translations':
+            if field_name == 'translations':
                 translations = inst_rep.pop(field_name)
                 print('TR', translations)
                 if lang_code not in translations:

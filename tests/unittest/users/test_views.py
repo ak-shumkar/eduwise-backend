@@ -1,7 +1,7 @@
 import pytest
 from rest_framework.test import APIClient
 from django.contrib.auth import get_user_model
-from users.models import AGENT, STUDENT
+from eduwise.users.models import AGENT, STUDENT
 User = get_user_model()
 
 client = APIClient()

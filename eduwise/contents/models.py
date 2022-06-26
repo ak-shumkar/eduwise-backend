@@ -59,7 +59,8 @@ class SubMenuI18N(AbstractLocaleModel):
 class TextBlock(AbstractDateModel):
     title = models.CharField(max_length=256, default="")
     content = RichTextUploadingField()
-    submenu = models.ForeignKey(SubMenu, on_delete=models.PROTECT, null=True, related_name='posts')  # TODO remove null=True
+    submenu = models.ForeignKey(SubMenu, on_delete=models.PROTECT, null=True, related_name='posts')
+    # TODO remove null=True
 
     class Meta:
         db_table = 'text_block'

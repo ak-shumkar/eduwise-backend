@@ -21,7 +21,8 @@ class Migration(migrations.Migration):
                 ('season', models.DateField()),
                 ('application_deadline', models.DateField()),
                 ('program_start', models.DateField()),
-                ('institution', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='deadlines', to='institutions.institution')),
+                ('institution', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                                  related_name='deadlines', to='institutions.institution')),
             ],
             options={
                 'abstract': False,

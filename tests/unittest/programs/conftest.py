@@ -1,8 +1,8 @@
 import pytest
 
-from programs.models import Program, Term
+from eduwise.programs.models import Term
 
-from locations.models import Country, City, Province
+from eduwise.locations.models import Country
 
 
 @pytest.mark.django_db
@@ -25,12 +25,14 @@ def provinces(countries):
         {'USA': ['California', 'Massachusetts', 'Pennsylvania', 'Texas', 'Illinois']},
         {'CAN': ['Ontario', 'Quebec', '']}
     ]
+    return provinces_names
 
 
 def cities(provinces):
     city_names = [
         {('USA', 'California'): ['Los Angeles', 'San Diego', 'San Jose', 'San Fransisco']}
     ]
+    return city_names
 
 
 @pytest.mark.django_db
@@ -54,5 +56,4 @@ def terms():
 @pytest.mark.django_db
 @pytest.fixture
 def programs():
-    # program_names =
-    programs = Program.objects.create()
+    return None

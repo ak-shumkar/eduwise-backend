@@ -14,7 +14,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='newsi18n',
             name='news',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='translations', to='contents.news'),
+            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='translations', to='contents.news'),
             preserve_default=False,
         ),
     ]
