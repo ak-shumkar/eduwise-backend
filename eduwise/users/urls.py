@@ -2,10 +2,10 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('', include('djoser.urls')),
-    path('', include('djoser.urls.jwt')),
-    path('facebook/', views.FacebookLogin.as_view(), name='fb_login'),
-    path('google/', views.GoogleLogin.as_view(), name='google_login'),
-    path('accounts/', include('allauth.urls'), name='socialaccount_signup'),
-    path('profiles/my/', views.MyProfileView.as_view(), name='my_profile'),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.jwt')),
+    path('auth/facebook/', views.FacebookLogin.as_view(), name='fb_login'),
+    path('auth/google/', views.GoogleLogin.as_view(), name='google_login'),
+    path('auth/accounts/', include('allauth.urls'), name='socialaccount_signup'),
+    path('profiles/me/', views.MyProfileView.as_view(), name='my_profile'),
 ]
