@@ -28,6 +28,7 @@ class ProvinceViewSet(AbstractViewSet):
     list_serializer_class = serializers.ProvinceDetailSerializer
     queryset = models.Province.objects.all()
     permission_classes = [ReadOnlyOrAdmin]
+    pagination_class = StandardResultsSetPagination
 
 
 class ProvinceI18NViewSet(AbstractViewSet):

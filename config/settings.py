@@ -248,6 +248,7 @@ ADMINS = [('Mamatkasym', 'mm.kalandar@gmail.com')]
 if env('ENVIRONMENT', default='development') == 'production':
     SECURE_BROWSER_XSS_FILTER = True
     X_FRAME_OPTIONS = 'DENY'
+    USE_X_FORWARDED_HOST = True
     SECURE_SSL_REDIRECT = True
     SECURE_HSTS_SECONDS = 3600
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
