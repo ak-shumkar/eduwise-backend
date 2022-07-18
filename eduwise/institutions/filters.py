@@ -7,6 +7,7 @@ class InstitutionFilter(filters.FilterSet):
     price_min = filters.NumberFilter(method='min_price')
     price_max = filters.NumberFilter(method='max_price')
     program = filters.CharFilter(method='by_program')
+    category = filters.NumberFilter(method='by_category')
 
     class Meta:
         model = Institution
@@ -16,6 +17,11 @@ class InstitutionFilter(filters.FilterSet):
     def by_program(queryset, name, program_name):
         """"""
         return queryset.filter(programs__title__contains=program_name)
+
+    @staticmethod
+    def by_category(queryset, name, category):
+        """"""
+        return queryset.filter(programs__faculty_id=category)
 
     @staticmethod
     def min_price(queryset, name, value):

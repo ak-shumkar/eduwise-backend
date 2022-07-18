@@ -1,8 +1,11 @@
 from django_filters import rest_framework as filters
 from rest_framework.filters import SearchFilter
 
+from eduwise.abstract.paginations import StandardResultsSetPagination
 from eduwise.abstract.views import AbstractViewSet
-from eduwise.utils.permissions import IsAdministrator, IsStudentOrAgent, ReadOnlyOrAdmin
+from eduwise.utils.permissions import (IsAdministrator, IsStudentOrAgent,
+                                       ReadOnlyOrAdmin)
+
 from . import models, serializers
 from .filters import ProgramFilters
 
@@ -37,6 +40,7 @@ class ProgramViewSet(AbstractViewSet):
     filter_backends = (SearchFilter, filters.DjangoFilterBackend,)
     search_fields = ['title']
     filterset_class = ProgramFilters
+    pagination_class = StandardResultsSetPagination
 
 
 class FeeViewSet(AbstractViewSet):
