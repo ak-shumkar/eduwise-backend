@@ -28,7 +28,7 @@ urlpatterns = [
     path('api/', include('eduwise.institutions.urls')),
     path('api/', include('eduwise.programs.urls')),
     path('api/', include('eduwise.contents.urls')),
-    path('api/auth/', include('eduwise.users.urls')),
+    path('api/', include('eduwise.users.urls')),
     re_path(r'^api/swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path(r'^api/swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     re_path(r'^api/redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
