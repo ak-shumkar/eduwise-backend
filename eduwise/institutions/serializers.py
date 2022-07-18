@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from eduwise.abstract.serializers import AbstractModelSerializer
+from eduwise.abstract.serializers import AbstractModelSerializer, DynamicFieldsModelSerializer
 from eduwise.programs.serializers import FeeSerializer
 from . import models
 
@@ -36,7 +36,7 @@ class InstitutionSerializer(AbstractModelSerializer):
         ]
 
 
-class InstitutionDetailSerializer(AbstractModelSerializer):
+class InstitutionDetailSerializer(DynamicFieldsModelSerializer):
     translations = InstitutionI18NSerializer(many=True, read_only=True)
     fee = FeeSerializer()
 
