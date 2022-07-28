@@ -329,7 +329,7 @@ if env('ENVIRONMENT', default='development') == 'production':
             "file": {
                 "level": "INFO",
                 "class": "logging.FileHandler",
-                "filename": "etc/var/eduwise.log",
+                "filename": "eduwise.log",
                 "formatter": "app",
             },
         },
