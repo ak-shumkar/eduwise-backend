@@ -1,6 +1,6 @@
 from eduwise.abstract.paginations import StandardResultsSetPagination
 from eduwise.abstract.views import AbstractViewSet
-from eduwise.utils.permissions import IsAdministrator, ReadOnlyOrAdmin
+from eduwise.utils.permissions import ReadOnlyOrAdmin
 
 from . import models, serializers
 
@@ -18,7 +18,7 @@ class CountryI18NViewSet(AbstractViewSet):
     model = models.Country
     serializer_class = serializers.CountryI18NSerializer
     queryset = models.CountryI18N.objects.all()
-    permission_classes = [IsAdministrator]
+    permission_classes = [ReadOnlyOrAdmin]
 
 
 class ProvinceViewSet(AbstractViewSet):
@@ -36,7 +36,7 @@ class ProvinceI18NViewSet(AbstractViewSet):
     model = models.ProvinceI18N
     serializer_class = serializers.ProvinceI18NSerializer
     queryset = models.ProvinceI18N.objects.all()
-    permission_classes = [IsAdministrator]
+    permission_classes = [ReadOnlyOrAdmin]
 
 
 class CityViewSet(AbstractViewSet):
@@ -54,4 +54,4 @@ class CityI18NViewSet(AbstractViewSet):
     model = models.CityI18N
     serializer_class = serializers.CityI18NSerializer
     queryset = models.CityI18N.objects.all()
-    permission_classes = [IsAdministrator]
+    permission_classes = [ReadOnlyOrAdmin]
