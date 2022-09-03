@@ -20,6 +20,9 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,),
 )
 
+admin.site.site_header = "Eduwise Administration"
+admin.site.site_title = "Eduwise Admin Portal"
+
 urlpatterns = [
     path('api/oddmin/', admin.site.urls),  # Do not use in production
     path('api/chaining/', include('smart_selects.urls')),
