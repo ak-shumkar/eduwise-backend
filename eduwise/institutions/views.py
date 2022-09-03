@@ -1,6 +1,7 @@
 from django_filters import rest_framework as filters
 from rest_framework.filters import SearchFilter
 
+from eduwise.abstract.paginations import StandardResultsSetPagination
 from eduwise.abstract.views import AbstractViewSet
 from eduwise.utils.permissions import IsAdministrator, ReadOnlyOrAdmin
 from . import models, serializers
@@ -25,6 +26,7 @@ class InstitutionViewSet(AbstractViewSet):
     filter_backends = (SearchFilter, filters.DjangoFilterBackend)
     search_fields = ['name']
     filterset_class = InstitutionFilter
+    pagination_class = StandardResultsSetPagination
 
 
 class InstitutionI18NViewSet(AbstractViewSet):
