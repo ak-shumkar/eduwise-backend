@@ -235,7 +235,7 @@ SIMPLE_JWT = {
 }
 
 MEDIA_URL = 'media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 # REST_AUTH_TOKEN_MODEL = 'rest_framework_simplejwt.tokens.Token'
 SWAGGER_SETTINGS = {

@@ -1,19 +1,21 @@
-version: "3.9"
+version: "3.3"
 
 services:
   db:
-    container_name: postgres
-    image: postgres
+    container_name: eduwise-db
+    image: postgres:14-alpine
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-  web:
-    container_name: django
-    build: .
-    command: python manage.py runserver localhost:8000
+
+  api:
+    container_name: eduwise-api
+    build:
+      context: .
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/api
     ports:
@@ -23,8 +25,9 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_HOST=db
+      - ALLOWED_HOSTS=0.0.0.0
     depends_on:
       - db
 
 volumes:
-  pgdata:
+  postgres_data:
