@@ -1,5 +1,7 @@
 FROM python:3.9-alpine
 
+RUN mkdir /api
+RUN mkdir /api/staticfiles
 WORKDIR /api
 
 ENV PYTHONUNBUFFERED=1
