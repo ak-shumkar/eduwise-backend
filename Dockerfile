@@ -20,6 +20,6 @@ COPY entrypoint.sh .
 RUN sed -i 's/\r$//g' /api/entrypoint.sh
 RUN chmod +x /api/entrypoint.sh
 
-COPY .. .
+COPY . .
 
 # See https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/
