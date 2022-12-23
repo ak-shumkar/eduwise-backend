@@ -126,7 +126,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     },
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': env('POSTGRES_ENGINE', default='django.db.backends.postgresql_psycopg2'),
         'NAME': env('POSTGRES_NAME', default='postgres'),
         'USER': env('POSTGRES_USER', default='postgres'),
         'HOST': env('POSTGRES_HOST', default='localhost'),
