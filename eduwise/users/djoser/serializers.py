@@ -21,7 +21,8 @@ class UserDetailsSerializer(DjoserUserSerializer):
 
     class Meta(DjoserUserSerializer.Meta):
         fields = ['username', 'id', 'first_name', 'last_name', 'email'] + \
-                 ['last_login', 'is_staff', 'id', 'role', 'is_active', 'date_joined', 'is_superuser']
+                 ['last_login', 'is_staff', 'id', 'role', 'is_active', 'date_joined', 'is_superuser',
+                  'middle_name', 'gender', 'birthdate', 'country', 'phone', 'education_level', 'motivation']
         read_only_fields = ['last_login', 'is_staff', 'id', 'role', 'is_active', 'date_joined', 'is_superuser']
         extra_kwargs = {'password': {'write_only': True}}
 

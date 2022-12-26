@@ -48,6 +48,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     role = models.CharField(choices=ROLE_CHOICES, default=STUDENT, max_length=1)
 
+    middle_name = models.CharField(max_length=128, null=True, blank=True)
+    gender = models.CharField(max_length=8, null=True, blank=True)
+    birthdate = models.DateField(null=True, blank=True)
+    country = models.ForeignKey("locations.Country", null=True, blank=True, on_delete=models.PROTECT)
+    phone = PhoneNumberField(blank=True, null=True)
+
+    education_level = models.CharField(max_length=64, null=True, blank=True)
+    motivation = models.TextField(null=True, blank=True)
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
@@ -81,19 +89,5 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.role == AGENT
 
 
-class StudentProfile(models.Model):
-    first_name = models.CharField(max_length=128, default="")
-    last_name = models.CharField(max_length=128, default="")
-    middle_name = models.CharField(max_length=128, null=True, blank=True)
-    gender = models.CharField(max_length=8, null=True, blank=True)
-    birthdate = models.DateField(null=True, blank=True)
-    country = models.ForeignKey("locations.Country", null=True, blank=True, on_delete=models.PROTECT)
-    phone = PhoneNumberField(blank=True, null=True)
 
-    education_level = models.CharField(max_length=64, null=True, blank=True)
-    motivation = models.TextField(null=True, blank=True)
 
-    user = models.OneToOneField(User, related_name="profile", on_delete=models.PROTECT)
-
-    class Meta:
-        db_table = "student_profile"
