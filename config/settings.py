@@ -28,16 +28,16 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY', default='django-insecure-$xtn-y&n(gj6+byfb9!*s8m_lxff#77b_rd=wv*@(4w-8(q453')
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(int(env('DEBUG', default=1)))
+DEBUG = bool(int(env('DEBUG', False)))
 
 ALLOWED_HOSTS = []
 ALLOWED_HOSTS.extend(
     filter(
         None,
-        env('ALLOWED_HOSTS', default='localhost,127.0.0.1,0.0.0.0,128.199.86.102').split(',')
+        env('ALLOWED_HOSTS').split(',')
     )
 )
 CORS_ORIGIN_ALLOW_ALL = True
@@ -170,8 +170,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/api/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+STATIC_ROOT = env('STATIC_ROOT', default=os.path.join(BASE_DIR, 'staticfiles'))
 STATICFILES_DIRS = []
 
 # Default primary key field type
@@ -252,8 +252,9 @@ DJOSER = {
 }
 
 ADMINS = [('Mamatkasym', 'mm.kalandar@gmail.com')]
+ADMIN_URL = env("ADMIN_URL")
 
-if env('ENVIRONMENT', default='development') == 'production':
+if env('ENVIRONMENT', default='production') == 'production':
     SECURE_BROWSER_XSS_FILTER = True
     X_FRAME_OPTIONS = 'DENY'
     USE_X_FORWARDED_HOST = True
@@ -264,6 +265,7 @@ if env('ENVIRONMENT', default='development') == 'production':
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+    SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 
 CKEDITOR_BASEPATH = "/api/static/ckeditor/ckeditor/"
 CKEDITOR_UPLOAD_PATH = "uploads/"
