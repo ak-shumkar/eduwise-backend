@@ -1,0 +1,28 @@
+name: Build & Deploy
+on:
+  push:
+    branches: [dev]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Eduwise Backend Testing
+        uses: appleboy/ssh-action@v0.1.2
+        with:
+          host: ${{secrets.SSH_HOST_TEST}} # IP address of the EC2 you wish to ssh into
+          password: ${{secrets.SSH_KEY_TEST}} # Private or public key of the EC2
+          username: ${{secrets.SSH_USERNAME_TEST}} # User of the EC2 you want to ssh into
+
+          script: |
+            cd ${{ secrets.PROJECT_PATH_TEST}}
+            git pull origin dev
+            sudo systemctl stop gunicorn
+            source venv/bin/activate
+            pip3 install --upgrade pip
+            pip3 install -r requirements
+            ./manage.py migrate
+            ./manage.py collectstatic --no-input
+            deactivate
+            sudo systemctl daemon-reload
+            sudo systemctl restart gunicorn
