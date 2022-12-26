@@ -24,7 +24,7 @@ admin.site.site_header = "Eduwise Administration"
 admin.site.site_title = "Eduwise Admin Portal"
 
 urlpatterns = [
-    path('api/oddmin/', admin.site.urls),  # Do not use in production
+    path(settings.ADMIN_URL, admin.site.urls),
     path('api/chaining/', include('smart_selects.urls')),
     re_path(r'api/ckeditor/', include('ckeditor_uploader.urls')),
     path('api/', include('eduwise.locations.urls')),
