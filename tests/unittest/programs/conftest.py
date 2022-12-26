@@ -35,12 +35,6 @@ def cities(provinces):
     return city_names
 
 
-@pytest.mark.django_db
-@pytest.fixture
-def universities():
-    return None
-
-
 @pytest.fixture
 def terms():
     seasons = ['Winter', 'Spring', 'Summer', 'Autumn']

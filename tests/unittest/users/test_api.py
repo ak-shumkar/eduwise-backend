@@ -2,15 +2,10 @@ import pytest
 from rest_framework.test import APIClient
 from django.contrib.auth import get_user_model
 from eduwise.users.models import AGENT, STUDENT
+
 User = get_user_model()
 
 client = APIClient()
-
-
-@pytest.fixture
-def user():
-    user = User.objects.create(username='demouser', password='demopassword')
-    return user
 
 
 @pytest.mark.django_db
@@ -27,3 +22,11 @@ def test_agent_register():
                                                      'role': AGENT})
     assert response.status_code == 201
     assert response.data['role'] == AGENT
+
+
+@pytest.mark.django_db
+def test_users_me(user_access_token, user):
+    client.credentials(HTTP_AUTHORIZATION='Bearer ' + user_access_token)
+    response = client.get('/api/auth/users/me/')
+    assert response.status_code == 200
+    assert response.json()['username'] == user.username
